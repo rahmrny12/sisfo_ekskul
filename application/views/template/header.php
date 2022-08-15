@@ -36,10 +36,13 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+              <a href="index.html" class="site_title"><i class="fas fa-volleyball-ball"></i> <span>Sisfo Ekskul</span></a>
             </div>
 
             <div class="clearfix"></div>
 
             <?php $this->load->view('template/sidebar') ?>
             <?php $this->load->view('template/topbar') ?>
+
+            <!-- page content -->
+            <div class="right_col" role="main">
