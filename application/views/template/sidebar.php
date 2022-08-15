@@ -18,7 +18,11 @@
         <h3>Umum</h3>
         <ul class="nav side-menu"><li><a href="<?= base_url('dashboard') ?>">Dashboard</a></li></ul>
         <ul class="nav side-menu">
-            <li><a><i class="fa fa-home"></i> Ekstrakurikuler <span class="fa fa-chevron-down"></span></a>
+            <li>
+                <a>
+                    <i class="fa fa-wheelchair-alt "></i>Ekstrakurikuler
+                    <span class="fa fa-chevron-down"></span>
+                </a>
                 <ul class="nav child_menu">
                     <li><a href="<?= base_url('ekskul') ?>">Daftar Ekskul</a></li>
                     <li><a href="<?= base_url('ekskul/tambah') ?>">Tambah Ekskul</a></li>
