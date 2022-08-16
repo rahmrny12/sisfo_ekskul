@@ -57,7 +57,7 @@
 <script src="<?= base_url('vendor/gentelella/') ?>build/js/custom.min.js"></script>
 
 <script>
-  function deleteEkskulConfirm() {
+  function deleteEkskulConfirm(id_ekskul) {
     Swal.fire({
       title: 'Yakin ingin menghapus ekskul?',
       text: "Setelah anda menghapus, maka ekskul tidak bisa dikembalikan.",
@@ -68,7 +68,7 @@
       confirmButtonText: 'Hapus!'
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location.href = "<?= base_url('ekskul/hapus') ?>";
+        window.location.href = "<?= base_url('ekskul/hapus/') ?>" + id_ekskul;
       }
     })
   }
