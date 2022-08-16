@@ -72,6 +72,49 @@
       }
     })
   }
+
+  function searchSiswa() {
+    var nisn = document.getElementById('nisn');
+    var nama_siswa = document.getElementById('nama_siswa');
+    var kelas = document.getElementById('kelas');
+    var alamat = document.getElementById('alamat');
+    var no_telp = document.getElementById('no_telp');
+
+    $.ajax({
+      url: "<?= base_url('siswa/cari/') ?>" + nisn.value,
+      success: function(data) {
+        var siswa = JSON.parse(data);
+        console.log(siswa);
+        if (siswa != null) {
+          id_siswa.value = siswa.id_siswa;
+          nama_siswa.value = siswa.nama_siswa;
+          kelas.value = siswa.kelas;
+          alamat.value = siswa.alamat;
+          no_telp.value = siswa.no_telp;
+        }
+      }
+    })
+  }
+
+  function daftarEkskulConfirm() {
+    var nama_siswa = document.getElementById('nama_siswa');
+    var ekskul = document.getElementById('ekskul');
+    
+    Swal.fire({
+      title: 'Apakah data siswa dan pilihan ekskul sudah benar?',
+      html: "<pre>Nama siswa : " + nama_siswa.value + "\nekskul dipilih : " + ekskul.options[ekskul.selectedIndex].text + "</pre>Tekan kirim apabila semuanya sudah benar.",
+      icon: 'info',
+      showCancelButton: true,
+      reverseButtons: true,
+      confirmButtonColor: '#2484f2',
+      cancelButtonColor: '#b3b3b3',
+      confirmButtonText: 'Kirim'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        document.formPendaftaran.submit();
+      }
+    })
+  }
 </script>
 
 </body>

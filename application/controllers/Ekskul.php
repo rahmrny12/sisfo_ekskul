@@ -24,7 +24,9 @@ class Ekskul extends CI_Controller
 	{
 		$this->form_validation->set_rules('nama_ekskul', 'Nama ekskul', 'trim|required');
 		$this->form_validation->set_rules('deskripsi', 'Deskripsi', 'trim|required');
-		// $this->form_validation->set_rules('foto_ekskul', 'Foto Ekskul', 'trim|required');
+		if (empty($_FILES['foto_ekskul']['name'])) {
+			$this->form_validation->set_rules('foto_ekskul', 'Foto Ekskul', 'required');
+		}
 
 		if ($this->form_validation->run() == false) {
 			$data['title'] = 'Tambah Ekstrakurikuler';

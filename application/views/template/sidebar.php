@@ -17,7 +17,6 @@
     <div class="menu_section">
         <h3>Umum</h3>
         <ul class="nav side-menu"><li><a href="<?= base_url('dashboard') ?>">Dashboard</a></li></ul>
-        <ul class="nav side-menu"><li><a href="<?= base_url('ekskul/daftar') ?>">Pendaftaran Ekskul</a></li></ul>
         <ul class="nav side-menu">
             <li>
                 <a>
@@ -25,6 +24,7 @@
                     <span class="fa fa-chevron-down"></span>
                 </a>
                 <ul class="nav child_menu">
+                    <li><a href="<?= base_url('siswa/daftar_ekskul') ?>">Pendaftaran Ekskul</a></li>
                     <li><a href="<?= base_url('siswa') ?>">Daftar Siswa</a></li>
                     <li><a href="<?= base_url('siswa/tambah') ?>">Tambah Siswa</a></li>
                 </ul>
