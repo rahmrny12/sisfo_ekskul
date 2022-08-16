@@ -22,8 +22,8 @@ class Siswa extends CI_Controller
 
 	public function detail($id_siswa)
 	{
-		$data['siswa'] = $this->m_siswa->get_detail_siswa($id_siswa)->row_array();
-		$data['ekskul'] = $this->m_siswa->get_ekskul_siswa($id_siswa)->result_array();
+		$data['siswa'] = $this->m_siswa->getDetailSiswa($id_siswa)->row_array();
+		$data['ekskul'] = $this->m_siswa->getEkskulSiswa($id_siswa)->result_array();
 
 		$data['title'] = 'Detail Siswa';
 		$this->load->view('template/header', $data);
@@ -31,7 +31,58 @@ class Siswa extends CI_Controller
 		$this->load->view('template/footer');
 	}
 
-	public function cari($nisn)
+	public function cari_siswa()
+	{
+		$keyword = $this->input->post('keyword');
+		if ($keyword != "") {
+			$siswa = $this->m_siswa->searchSiswaByName($keyword);
+		} else {
+			$siswa = $this->m_siswa->getSiswa();
+		}
+		
+		$output = "";
+		if ($siswa != null) {
+			foreach ($siswa as $data) {
+				$output .= '
+				<tr>
+					<td>
+						<h6>' . ucwords($data['nama_siswa']) . '</h6>
+					</td>
+					<td>
+						<h6>' . $data['nisn'] . '</h6>
+					</td>
+					<td>
+						<h6>' . strtoupper($data['kelas']) . '</h6>
+					</td>
+					<td>
+						<h6>';
+	
+				if ($data['ekskul'] == null) {
+					$output .= 'Belum ada ekskul diikuti.';
+				} else {
+					foreach ($data['ekskul'] as $ekskul) {
+						$output .= '<span class="badge badge-pill badge-secondary py-3 px-4 mr-1">' . ucwords($ekskul['nama_ekskul']) . '</span>';
+					}
+				}
+	
+				$output .= '</h6>
+						</td>
+						<td>
+							<a class="btn btn-secondary" href="' . base_url('siswa/detail/') . $data['id_siswa'] . '">
+								Detail Siswa
+							</a>
+						</td>
+					</tr>
+					';
+			}
+		} else {
+			$output = '<tr><td colspan="5" class="text-center pt-4"><h6>Data siswa tidak ditemukan.</h6></td></tr>';
+		}
+		
+		echo $output;
+	}
+
+	public function cari_siswa_berdasarkan_nisn($nisn)
 	{
 		$siswa = $this->m_siswa->getSiswaByNISN($nisn)->row();
 		echo json_encode($siswa);
@@ -42,7 +93,7 @@ class Siswa extends CI_Controller
 		$this->form_validation->set_rules('id_siswa', 'Siswa', 'trim|required');
 		$this->form_validation->set_rules('ekskul', 'Ekstrakurikuler', 'trim|required');
 
-		$data['ekskul'] = $this->m_ekskul->get_ekskul()->result_array();
+		$data['ekskul'] = $this->m_ekskul->getEkskul()->result_array();
 
 		if ($this->form_validation->run() == false) {
 			$data['title'] = 'Tambah Ekstrakurikuler';
@@ -57,7 +108,7 @@ class Siswa extends CI_Controller
 			];
 
 			$this->db->db_debug = FALSE;
-			$result = $this->m_siswa->insert_pendaftaran($daftar);
+			$result = $this->m_siswa->insertPendaftaran($daftar);
 			if (!$result) {
 				$error = $this->db->error();
 				$this->session->set_flashdata('message', '<div class="alert alert-warning font-weight-bold">Siswa sudah terdaftar. Kode error[' . $error['code'] . ']</div>');
@@ -90,7 +141,7 @@ class Siswa extends CI_Controller
 				'no_telp' => $this->input->post('no_telp'),
 			];
 
-			$this->m_siswa->insert_siswa($siswa);
+			$this->m_siswa->insertSiswa($siswa);
 			$this->session->set_flashdata('message', '<div class="alert alert-success font-weight-bold">Siswa baru berhasil ditambahkan.</div>');
 			redirect('siswa');
 		}
@@ -98,7 +149,7 @@ class Siswa extends CI_Controller
 
 	// public function edit($id_ekskul)
 	// {
-	// 	$data['ekskul'] = $this->m_ekskul->get_ekskul_detail($id_ekskul)->row_array();
+	// 	$data['ekskul'] = $this->m_ekskul->getEkskulDetail($id_ekskul)->row_array();
 
 	// 	$this->form_validation->set_rules('nama_ekskul', 'Nama ekskul', 'trim|required');
 	// 	$this->form_validation->set_rules('deskripsi', 'Deskripsi', 'trim|required');
@@ -132,7 +183,7 @@ class Siswa extends CI_Controller
 	// 					'foto_ekskul' => $foto_ekskul['file_name'],
 	// 				];
 
-	// 				$this->m_ekskul->update_ekskul($id_ekskul, $ekskul_baru);
+	// 				$this->m_ekskul->updateEkskul($id_ekskul, $ekskul_baru);
 	// 				$this->session->set_flashdata('message', '<div class="alert alert-success font-weight-bold">Ekskul baru diedit.</div>');
 	// 				redirect('ekskul');
 	// 			} else {
@@ -146,7 +197,7 @@ class Siswa extends CI_Controller
 	// 				'deskripsi' => $this->input->post('deskripsi'),
 	// 			];
 
-	// 			$this->m_ekskul->update_ekskul($id_ekskul, $ekskul_baru);
+	// 			$this->m_ekskul->updateEkskul($id_ekskul, $ekskul_baru);
 	// 			$this->session->set_flashdata('message', '<div class="alert alert-success font-weight-bold">Ekskul berhasil diedit.</div>');
 	// 			redirect('ekskul');
 	// 		}
@@ -155,7 +206,7 @@ class Siswa extends CI_Controller
 
 	// public function hapus($id_ekskul)
 	// {
-	// 	$this->m_ekskul->delete_ekskul($id_ekskul);
+	// 	$this->m_ekskul->deleteEkskul($id_ekskul);
 	// 	$this->session->set_flashdata('message', '<div class="alert alert-warning font-weight-bold">Ekskul berhasil dihapus.</div>');
 	// 	redirect('ekskul');
 	// }

@@ -12,7 +12,7 @@ class Ekskul extends CI_Controller
 
 	public function index()
 	{
-		$data['ekskul'] = $this->m_ekskul->get_ekskul()->result_array();
+		$data['ekskul'] = $this->m_ekskul->getEkskul()->result_array();
 
 		$data['title'] = 'Daftar Ekstrakurikuler';
 		$this->load->view('template/header', $data);
@@ -52,7 +52,7 @@ class Ekskul extends CI_Controller
 					'foto_ekskul' => $foto_ekskul['file_name'],
 				];
 
-				$this->m_ekskul->insert_ekskul($ekskul_baru);
+				$this->m_ekskul->insertEkskul($ekskul_baru);
 				$this->session->set_flashdata('message', '<div class="alert alert-success font-weight-bold">Ekskul baru berhasil ditambahkan.</div>');
 				redirect('ekskul');
 			} else {
@@ -65,7 +65,7 @@ class Ekskul extends CI_Controller
 
 	public function edit($id_ekskul)
 	{
-		$data['ekskul'] = $this->m_ekskul->get_ekskul_detail($id_ekskul)->row_array();
+		$data['ekskul'] = $this->m_ekskul->getEkskulDetail($id_ekskul)->row_array();
 
 		$this->form_validation->set_rules('nama_ekskul', 'Nama ekskul', 'trim|required');
 		$this->form_validation->set_rules('deskripsi', 'Deskripsi', 'trim|required');
@@ -99,7 +99,7 @@ class Ekskul extends CI_Controller
 						'foto_ekskul' => $foto_ekskul['file_name'],
 					];
 
-					$this->m_ekskul->update_ekskul($id_ekskul, $ekskul_baru);
+					$this->m_ekskul->updateEkskul($id_ekskul, $ekskul_baru);
 					$this->session->set_flashdata('message', '<div class="alert alert-success font-weight-bold">Ekskul baru diedit.</div>');
 					redirect('ekskul');
 				} else {
@@ -113,7 +113,7 @@ class Ekskul extends CI_Controller
 					'deskripsi' => $this->input->post('deskripsi'),
 				];
 
-				$this->m_ekskul->update_ekskul($id_ekskul, $ekskul_baru);
+				$this->m_ekskul->updateEkskul($id_ekskul, $ekskul_baru);
 				$this->session->set_flashdata('message', '<div class="alert alert-success font-weight-bold">Ekskul berhasil diedit.</div>');
 				redirect('ekskul');
 			}
@@ -122,7 +122,7 @@ class Ekskul extends CI_Controller
 
 	public function hapus($id_ekskul)
 	{
-		$this->m_ekskul->delete_ekskul($id_ekskul);
+		$this->m_ekskul->deleteEkskul($id_ekskul);
 		$this->session->set_flashdata('message', '<div class="alert alert-warning font-weight-bold">Ekskul berhasil dihapus.</div>');
 		redirect('ekskul');
 	}

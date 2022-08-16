@@ -32,7 +32,7 @@
                     <div class="field item form-group">
                         <label class="col-form-label col-md-3 col-sm-3  label-align" for="nisn">NISN Siswa<span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6">
-                            <input onkeyup="searchSiswa()" type="text" class="form-control has-feedback-left" id="nisn" value="<?= set_value('nisn') ?>" name="nisn" placeholder="Masukkan nisn siswa">
+                            <input onkeyup="searchSiswaByNISN()" type="text" class="form-control has-feedback-left" id="nisn" value="<?= set_value('nisn') ?>" name="nisn" placeholder="Masukkan nisn siswa">
                             <label class="fa fa-wheelchair-alt form-control-feedback left" for="nisn" aria-hidden="true"></label>
                         </div>
                         <?= form_error('nisn', '<div class="font-weight-bold text-danger">', '</div>') ?>

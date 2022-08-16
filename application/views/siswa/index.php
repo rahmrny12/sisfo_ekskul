@@ -1,17 +1,6 @@
 <div class="page-title">
     <div class="title_left">
-        <h3>Siswa</h3>
-    </div>
-
-    <div class="title_right">
-        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Cari Siswa...">
-                <span class="input-group-btn">
-                    <button class="btn btn-secondary text-white" type="button">Cari!</button>
-                </span>
-            </div>
-        </div>
+        <h3>Daftar Siswa</h3>
     </div>
 </div>
 
@@ -20,20 +9,18 @@
 <div class="row">
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
-            <div class="x_title">
-                <h2>Daftar Siswa</h2>
+            <div class="flex">
+                <select onchange="filterSiswa()" class="form-control col-md-3" name="ekskul" id="ekskul">
+                    <option value="-">Filter Siswa</option>
+                    <option value="terbaru">Terbaru</option>
+                    <option value="belum_mengikuti">Belum Mengikuti Ekskul</option>
+                </select>
                 <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Settings 1</a>
-                            <a class="dropdown-item" href="#">Settings 2</a>
+                    <div class="top_search">
+                        <div class="input-group">
+                            <input onkeyup="searchSiswaByName()" id="search_siswa" type="text" class="form-control" placeholder="Cari Siswa...">
                         </div>
-                    </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
+                    </div>
                 </ul>
                 <div class="clearfix"></div>
             </div>
@@ -52,12 +39,18 @@
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="siswa_table">
                                     <?php foreach ($siswa as $data) : ?>
                                         <tr>
-                                            <td><h6><?= ucwords($data['nama_siswa']) ?></h6></td>
-                                            <td><h6><?= $data['nisn'] ?></h6></td>
-                                            <td><h6><?= strtoupper($data['kelas']) ?></h6></td>
+                                            <td>
+                                                <h6><?= ucwords($data['nama_siswa']) ?></h6>
+                                            </td>
+                                            <td>
+                                                <h6><?= $data['nisn'] ?></h6>
+                                            </td>
+                                            <td>
+                                                <h6><?= strtoupper($data['kelas']) ?></h6>
+                                            </td>
                                             <td>
                                                 <h6>
                                                     <?php if ($data['ekskul'] == null) : ?>
