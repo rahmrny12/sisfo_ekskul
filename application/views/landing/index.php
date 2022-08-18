@@ -61,7 +61,7 @@
 
                     <div class="owl-carousel owl-theme" id="project-slide">
                          <?php foreach ($ekskul as $data) : ?>
-                              <div class="item project-wrapper m-5" data-aos="fade-up" data-aos-delay="100">
+                              <div class="item project-wrapper" data-aos="fade-up" data-aos-delay="100">
                                    <img src="<?= base_url('assets/images/ekskul_images/') . $data['foto_ekskul'] ?>" class="img-fluid" alt="<?= $data['foto_ekskul'] ?>">
 
                                    <div class="project-info shadow-sm" style="bottom: -32px;">
@@ -71,7 +71,12 @@
                                                   <i class="fa fa-angle-right project-icon"></i>
                                              </a>
                                         </h3>
-                                        <small class="pr-5"><?= $data['deskripsi'] ?></small>
+                                        <div class="row">
+                                             <div class="col-10 text-truncate">
+                                                  <?= $data['deskripsi'] ?>
+                                             </div>
+                                        </div>
+                                        <!-- <small class="d-inline-block text-truncate col-9"></small> -->
                                    </div>
                               </div>
                          <?php endforeach; ?>
