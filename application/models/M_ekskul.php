@@ -20,4 +20,8 @@ class M_ekskul extends CI_Model {
     public function updateEkskul($id_ekskul, $data) {
         return $this->db->update('ekskul', $data, ['id_ekskul' => $id_ekskul]);
     }
+
+    public function totalKuis() {
+        return $this->db->get('ekskul')->num_rows();
+    }
 }

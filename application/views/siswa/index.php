@@ -10,15 +10,21 @@
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
             <div class="flex">
-                <select onchange="filterSiswa()" class="form-control col-md-3" name="ekskul" id="ekskul">
-                    <option value="-">Filter Siswa</option>
-                    <option value="terbaru">Terbaru</option>
+                <select onchange="filterSiswa()" class="form-control col-md-3 mr-2" name="filter_siswa" id="filter_siswa">
+                    <option value="">Filter Siswa</option>
+                    <option value="baru_daftar">Baru Saja Daftar</option>
                     <option value="belum_mengikuti">Belum Mengikuti Ekskul</option>
+                </select>
+                <select onchange="filterSiswa()" class="form-control col-md-3" name="filter_ekskul" id="filter_ekskul">
+                    <option value="">Filter Ekstrakurikuler</option>
+                    <?php foreach ($ekskul as $data) : ?>
+                        <option value="<?= $data['id_ekskul'] ?>"><?= $data['nama_ekskul'] ?></option>
+                    <?php endforeach; ?>
                 </select>
                 <ul class="nav navbar-right panel_toolbox">
                     <div class="top_search">
                         <div class="input-group">
-                            <input onkeyup="searchSiswaByName()" id="search_siswa" type="text" class="form-control" placeholder="Cari Siswa...">
+                            <input onkeyup="filterSiswa()" id="search_siswa" type="text" class="form-control" placeholder="Cari Siswa...">
                         </div>
                     </div>
                 </ul>
@@ -27,7 +33,9 @@
             <div class="x_content">
                 <div class="row">
                     <div class="col-sm-12">
-                        <?= $this->session->flashdata('message') ?>
+                        <div class="mb-2">
+                            <?= $this->session->flashdata('message') ?>
+                        </div>
                         <div class="card-box table-responsive">
                             <table id="datatable" class="table table-striped table-bordered">
                                 <thead>

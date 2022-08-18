@@ -38,8 +38,8 @@ class Ekskul extends CI_Controller
 			$config['allowed_types'] = 'jpg|jpeg|png';
 			$config['encrypt_name'] = true;
 			$config['max_size'] = '2048';
-			$config['max_width'] = '1024';
-			$config['max_height'] = '1024';
+			$config['max_width'] = '2048';
+			$config['max_height'] = '2048';
 
 			$this->load->library('upload', $config);
 

@@ -81,7 +81,9 @@
     var no_telp = document.getElementById('no_telp');
 
     $.ajax({
-      url: "<?= base_url('siswa/cari_siswa_berdasarkan_nisn/') ?>" + nisn.value,
+      url: "<?= base_url('siswa/cari_siswa/') ?>",
+      method: "POST",
+      data: {nisn: nisn.value},
       success: function(data) {
         var siswa = JSON.parse(data);
         if (siswa != null) {
@@ -95,14 +97,20 @@
     })
   }
 
-  function searchSiswaByName() {
+  function filterSiswa() {
     var search_siswa = document.getElementById('search_siswa');
+    var filter_siswa = document.getElementById('filter_siswa');
+    var filter_ekskul = document.getElementById('filter_ekskul');
     var siswa_table = document.getElementById('siswa_table');
     
     $.ajax({
-      url: "<?= base_url('siswa/cari_siswa') ?>",
+      url: "<?= base_url('siswa/filter_siswa') ?>",
       method: "post",
-      data: {keyword: search_siswa.value},
+      data: {
+        keyword: search_siswa.value,
+        filter_siswa: filter_siswa.value,
+        filter_ekskul: filter_ekskul.value,
+      },
       success: function(data) {
         siswa_table.innerHTML = data;
       }
@@ -125,6 +133,22 @@
     }).then((result) => {
       if (result.isConfirmed) {
         document.formPendaftaran.submit();
+      }
+    })
+  }
+
+  function logoutConfirm(id_ekskul) {
+    Swal.fire({
+      title: 'Yakin ingin keluar?',
+      text: "Setelah melakukan logout, Anda harus melakukan login ulang.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ff3636',
+      cancelButtonColor: '#b3b3b3',
+      confirmButtonText: 'Logout.'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "<?= base_url('auth/logout') ?>";
       }
     })
   }

@@ -13,6 +13,7 @@ class Siswa extends CI_Controller
 	public function index()
 	{
 		$data['siswa'] = $this->m_siswa->getSiswa();
+		$data['ekskul'] = $this->m_ekskul->getEkskul()->result_array();
 
 		$data['title'] = 'Daftar Siswa';
 		$this->load->view('template/header', $data);
@@ -31,15 +32,13 @@ class Siswa extends CI_Controller
 		$this->load->view('template/footer');
 	}
 
-	public function cari_siswa()
+	public function filter_siswa()
 	{
 		$keyword = $this->input->post('keyword');
-		if ($keyword != "") {
-			$siswa = $this->m_siswa->searchSiswaByName($keyword);
-		} else {
-			$siswa = $this->m_siswa->getSiswa();
-		}
-		
+		$filter_siswa = $this->input->post('filter_siswa');
+		$filter_ekskul = $this->input->post('filter_ekskul');
+		$siswa = $this->m_siswa->filterSiswa($keyword, $filter_siswa, $filter_ekskul);
+
 		$output = "";
 		if ($siswa != null) {
 			foreach ($siswa as $data) {
@@ -56,7 +55,7 @@ class Siswa extends CI_Controller
 					</td>
 					<td>
 						<h6>';
-	
+
 				if ($data['ekskul'] == null) {
 					$output .= 'Belum ada ekskul diikuti.';
 				} else {
@@ -64,7 +63,7 @@ class Siswa extends CI_Controller
 						$output .= '<span class="badge badge-pill badge-secondary py-3 px-4 mr-1">' . ucwords($ekskul['nama_ekskul']) . '</span>';
 					}
 				}
-	
+
 				$output .= '</h6>
 						</td>
 						<td>
@@ -78,12 +77,13 @@ class Siswa extends CI_Controller
 		} else {
 			$output = '<tr><td colspan="5" class="text-center pt-4"><h6>Data siswa tidak ditemukan.</h6></td></tr>';
 		}
-		
+
 		echo $output;
 	}
 
-	public function cari_siswa_berdasarkan_nisn($nisn)
+	public function cari_siswa()
 	{
+		$nisn = $this->input->post('nisn');
 		$siswa = $this->m_siswa->getSiswaByNISN($nisn)->row();
 		echo json_encode($siswa);
 	}
@@ -91,6 +91,10 @@ class Siswa extends CI_Controller
 	public function daftar_ekskul()
 	{
 		$this->form_validation->set_rules('id_siswa', 'Siswa', 'trim|required');
+		$this->form_validation->set_rules('nama_siswa', '-', 'trim|required');
+		$this->form_validation->set_rules('kelas', '-', 'trim|required');
+		$this->form_validation->set_rules('alamat', '-', 'trim|required');
+		$this->form_validation->set_rules('no_telp', '-', 'trim|required');
 		$this->form_validation->set_rules('ekskul', 'Ekstrakurikuler', 'trim|required');
 
 		$data['ekskul'] = $this->m_ekskul->getEkskul()->result_array();
@@ -98,16 +102,16 @@ class Siswa extends CI_Controller
 		if ($this->form_validation->run() == false) {
 			$data['title'] = 'Tambah Ekstrakurikuler';
 			$this->load->view('template/header', $data);
-			$this->load->view('siswa/daftar-ekskul', $data);
+			$this->load->view('siswa/daftar_ekskul', $data);
 			$this->load->view('template/footer');
 		} else {
 			$daftar = [
 				'id_siswa' => $this->input->post('id_siswa'),
 				'id_ekskul' => $this->input->post('ekskul'),
-				'waktu_pendaftaran' => time(),
+				'waktu_pendaftaran' => date("Y-m-d H:i:s"),
 			];
 
-			$this->db->db_debug = FALSE;
+			// $this->db->db_debug = FALSE;
 			$result = $this->m_siswa->insertPendaftaran($daftar);
 			if (!$result) {
 				$error = $this->db->error();
@@ -126,9 +130,11 @@ class Siswa extends CI_Controller
 		$this->form_validation->set_rules('kelas', 'Kelas', 'trim|required');
 		$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');
 		$this->form_validation->set_rules('no_telp', 'No Telepon', 'trim|required');
+		$this->form_validation->set_rules('username', 'Username', 'trim|required');
+		$this->form_validation->set_rules('password', 'Password', 'trim|required');
 
 		if ($this->form_validation->run() == false) {
-			$data['title'] = 'Tambah Ekstrakurikuler';
+			$data['title'] = 'Registrasi Siswa';
 			$this->load->view('template/header', $data);
 			$this->load->view('siswa/tambah', $data);
 			$this->load->view('template/footer');
@@ -139,6 +145,8 @@ class Siswa extends CI_Controller
 				'kelas' => $this->input->post('kelas'),
 				'alamat' => $this->input->post('alamat'),
 				'no_telp' => $this->input->post('no_telp'),
+				'username' => $this->input->post('username'),
+				'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
 			];
 
 			$this->m_siswa->insertSiswa($siswa);

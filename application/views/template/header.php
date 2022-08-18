@@ -41,7 +41,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="<?= base_url('dashboard') ?>" class="site_title"><i class="fa fa-wheelchair-alt  mt-3"></i><span class="ml-3">Sisfo Ekskul</span></a>
+              <a href="<?= base_url('home/dashboard') ?>" class="site_title"><i class="fa fa-wheelchair-alt  mt-3"></i><span class="ml-3">Sisfo Ekskul</span></a>
             </div>
 
             <div class="clearfix"></div>
