@@ -39,7 +39,7 @@ class Auth extends CI_Controller
 					];
 
 					$this->session->set_userdata($siswa);
-					redirect('home');
+					redirect('siswa');
 				} else {
 					$this->session->set_flashdata('message', '<div class="alert alert-danger font-weight-bold mb-0">Password yang Anda masukkan salah.</div>');
 					redirect('auth');

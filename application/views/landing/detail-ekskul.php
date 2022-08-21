@@ -40,7 +40,7 @@
             <div class="container text-center">
                 <h3>Tertarik untuk bergabung?</h3>
                 <?php if ($this->session->has_userdata('id_siswa')) : ?>
-                    <a href="<?= base_url('home/daftar_ekskul/') . $ekskul['id_ekskul'] ?>" class="btn btn-lg mt-3 text-white" style="background-color: var(--primary-color);">Daftar Sekarang</a>
+                    <a href="<?= base_url('siswa/daftar_ekskul/') . $ekskul['id_ekskul'] ?>" class="btn btn-lg mt-3 text-white" style="background-color: var(--primary-color);">Daftar Sekarang</a>
                 <?php else : ?>
                     <a href="<?= base_url('auth') ?>" class="btn btn-lg mt-3 text-white" style="background-color: var(--primary-color);">Login dulu untuk mendaftar</a>
                 <?php endif; ?>

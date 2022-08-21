@@ -572,7 +572,7 @@ var fdSlider = (function() {
                         
                         callback("update");                          
                                                                 
-                        // Opera doesn't let us cancel key events so the up/down arrows and home/end buttons will scroll the screen - which sucks                        
+                        // Opera doesn't let us cancel key events so the up/down arrows and siswa/end buttons will scroll the screen - which sucks                        
                         preventDefault(e);
                 };                                                
                     

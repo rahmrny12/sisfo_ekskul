@@ -3,7 +3,7 @@
      <!-- MENU BAR -->
      <nav class="navbar navbar-expand-lg">
           <div class="container">
-               <a class="navbar-brand mb-2" href="<?= base_url('home') ?>">
+               <a class="navbar-brand mb-2" href="<?= base_url('siswa') ?>">
                     <h3 class="d-inline ml-3">Sistem Informasi Ekstrakurikuler</h2>
                </a>
 

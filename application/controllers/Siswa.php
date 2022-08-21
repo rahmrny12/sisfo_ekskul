@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Home extends CI_Controller
+class Siswa extends CI_Controller
 {
 
 	public function __construct()
@@ -60,20 +60,10 @@ class Home extends CI_Controller
 			if (!$result) {
 				$error = $this->db->error();
 				$this->session->set_flashdata('message', '<div class="alert alert-warning font-weight-bold">Siswa sudah terdaftar. Kode error[' . $error['code'] . ']</div>');
-				redirect('home/detail_ekskul/' . $id_ekskul);
+				redirect('siswa/detail_ekskul/' . $id_ekskul);
 			}
 			$this->session->set_flashdata('message', '<div class="alert alert-success font-weight-bold">Pendaftaran berhasil.</div>');
-			redirect('home/detail_ekskul/' . $id_ekskul);
+			redirect('siswa/detail_ekskul/' . $id_ekskul);
 		}
-	}
-	
-	public function dashboard()
-	{
-		$data['total_kuis'] = $this->m_ekskul->totalKuis();
-		
-		$data['title'] = 'Dashboard';
-		$this->load->view('template-admin/header', $data);
-		$this->load->view('dashboard', $data);
-		$this->load->view('template-admin/footer');
 	}
 }

@@ -37,4 +37,4 @@
         </div>
     </div>
 
-    <h5><a href="<?= base_url('home') ?>" class="badge badge-warning badge-pill font-weight-bold p-3 position-fixed float-right m-3" style="bottom: 5px;right: 0;">Kembali ke Home</a></h5>
+    <h5><a href="<?= base_url('siswa') ?>" class="badge badge-warning badge-pill font-weight-bold p-3 position-fixed float-right m-3" style="bottom: 5px;right: 0;">Kembali ke Home</a></h5>

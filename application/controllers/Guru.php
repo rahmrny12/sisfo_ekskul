@@ -21,6 +21,16 @@ class Guru extends CI_Controller
 		$this->load->view('template-admin/footer');
 	}
 
+	public function dashboard()
+	{
+		$data['total_kuis'] = $this->m_ekskul->totalKuis();
+		
+		$data['title'] = 'Dashboard';
+		$this->load->view('template-admin/header', $data);
+		$this->load->view('dashboard', $data);
+		$this->load->view('template-admin/footer');
+	}
+
 	public function detail_siswa($id_siswa)
 	{
 		$data['siswa'] = $this->m_siswa->getDetailSiswa($id_siswa)->row_array();

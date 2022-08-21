@@ -14,7 +14,7 @@
 
                 <?= $this->session->flashdata('message') ?>
 
-                <form action="<?= base_url('home/daftar_ekskul/') . $default_ekskul ?>" method="post" class="contact-form" role="form">
+                <form action="<?= base_url('siswa/daftar_ekskul/') . $default_ekskul ?>" method="post" class="contact-form" role="form">
                     <div class="row">
                         <div class="col-lg-12">
                             <input class="form-control" value="<?= $this->session->userdata('nama_siswa') ?>" name="nama_siswa" id="nama_siswa" style="color: var(--primary-color);" readonly></input>
@@ -50,4 +50,4 @@
         </div>
     </div>
 
-    <h5><a href="<?= base_url('home') ?>" class="badge badge-warning badge-pill font-weight-bold p-3 position-fixed float-right m-3" style="bottom: 5px;right: 0;">Kembali ke Home</a></h5>
+    <h5><a href="<?= base_url('siswa') ?>" class="badge badge-warning badge-pill font-weight-bold p-3 position-fixed float-right m-3" style="bottom: 5px;right: 0;">Kembali ke Home</a></h5>
