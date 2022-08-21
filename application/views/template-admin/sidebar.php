@@ -24,9 +24,9 @@
                     <span class="fa fa-chevron-down"></span>
                 </a>
                 <ul class="nav child_menu">
-                    <li><a href="<?= base_url('siswa/daftar_ekskul') ?>">Pendaftaran Ekskul</a></li>
-                    <li><a href="<?= base_url('siswa') ?>">Daftar Siswa</a></li>
-                    <li><a href="<?= base_url('siswa/tambah') ?>">Tambah Siswa</a></li>
+                    <li><a href="<?= base_url('guru/daftar_ekskul_siswa') ?>">Pendaftaran Ekskul</a></li>
+                    <li><a href="<?= base_url('guru') ?>">Daftar Siswa</a></li>
+                    <li><a href="<?= base_url('guru/tambah_siswa') ?>">Tambah Siswa</a></li>
                 </ul>
             </li>
         </ul>

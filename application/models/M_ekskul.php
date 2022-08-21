@@ -9,6 +9,11 @@ class M_ekskul extends CI_Model {
         return $this->db->get_where('ekskul', ['id_ekskul' => $id_ekskul]);
     }
 
+    public function alreadyRegisterToEkskul($id_ekskul) {
+        $daftar = $this->db->get_where('pendaftaran', ['id_ekskul' => $id_ekskul, 'id_siswa' => $this->session->userdata('id_siswa')]);
+        return $daftar->num_rows() > 0 ? true : false;
+    }
+
     public function insertEkskul($data) {
         return $this->db->insert('ekskul', $data);
     }

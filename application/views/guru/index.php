@@ -65,13 +65,13 @@
                                                         Belum ada ekskul diikuti.
                                                     <?php else : ?>
                                                         <?php foreach ($data['ekskul'] as $ekskul) : ?>
-                                                            <span class="badge badge-pill badge-secondary py-3 px-4"><?= ucwords($ekskul['nama_ekskul']) ?></span>
+                                                            <span class="badge badge-pill badge-secondary py-3 px-4 mb-1"><?= ucwords($ekskul['nama_ekskul']) ?></span>
                                                         <?php endforeach; ?>
                                                     <?php endif; ?>
                                                 </h6>
                                             </td>
                                             <td>
-                                                <a class="btn btn-secondary" href="<?= base_url('siswa/detail/') . $data['id_siswa'] ?>">
+                                                <a class="btn btn-secondary" href="<?= base_url('guru/detail_siswa/') . $data['id_siswa'] ?>">
                                                     Detail Siswa
                                                 </a>
                                             </td>

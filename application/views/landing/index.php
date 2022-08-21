@@ -8,7 +8,7 @@
 
                          <h1 class="text-white" data-aos="fade-up">Lihat dan temukan minat <strong>Ekstrakurikuler</strong> kamu!</h1>
 
-                         <a href="#info" class="custom-btn btn-bg btn mt-3">Lebih lanjut -></a>
+                         <a href="#info" class="custom-btn btn-bg btn mt-3 smoothScroll">Lebih lanjut -></a>
                     </div>
                </div>
 
@@ -25,11 +25,11 @@
 
 
 <!-- ABOUT -->
-<section class="about section-padding pb-0" id="about">
+<section class="about section-padding pb-0" id="info">
      <div class="container">
           <div class="row">
 
-               <div class="col-lg-7 mx-auto col-md-10 col-12" id="info">
+               <div class="col-lg-7 mx-auto col-md-10 col-12">
                     <div class="about-info">
 
                          <h2 class="mb-4" data-aos="fade-up">Untuk apa ikut <strong>Ekstrakurikuler</strong></h2>

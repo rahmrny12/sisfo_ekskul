@@ -81,9 +81,11 @@
     var no_telp = document.getElementById('no_telp');
 
     $.ajax({
-      url: "<?= base_url('siswa/cari_siswa/') ?>",
+      url: "<?= base_url('guru/cari_guru/') ?>",
       method: "POST",
-      data: {nisn: nisn.value},
+      data: {
+        nisn: nisn.value
+      },
       success: function(data) {
         var siswa = JSON.parse(data);
         if (siswa != null) {
@@ -102,9 +104,9 @@
     var filter_siswa = document.getElementById('filter_siswa');
     var filter_ekskul = document.getElementById('filter_ekskul');
     var siswa_table = document.getElementById('siswa_table');
-    
+
     $.ajax({
-      url: "<?= base_url('siswa/filter_siswa') ?>",
+      url: "<?= base_url('guru/filter_siswa') ?>",
       method: "post",
       data: {
         keyword: search_siswa.value,
@@ -137,7 +139,7 @@
     })
   }
 
-  function logoutConfirm(id_ekskul) {
+  function logoutConfirm() {
     Swal.fire({
       title: 'Yakin ingin keluar?',
       text: "Setelah melakukan logout, Anda harus melakukan login ulang.",

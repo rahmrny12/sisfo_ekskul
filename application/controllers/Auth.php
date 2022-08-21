@@ -18,7 +18,9 @@ class Auth extends CI_Controller
 
 		if ($this->form_validation->run() == false) {
 			$data['title'] = 'Login Ekskul';
+			$this->load->view('template-landing/header', $data);
 			$this->load->view('landing/login', $data);
+			$this->load->view('template-landing/footer', $data);
 		} else {
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
@@ -27,6 +29,7 @@ class Auth extends CI_Controller
 			if ($siswa != null) {
 				if (password_verify($password, $siswa['password'])) {
 					$siswa = [
+						'id_siswa' => $siswa['id_siswa'],
 						'nama_siswa' => $siswa['nama_siswa'],
 						'username' => $siswa['username'],
 						'nisn' => $siswa['nisn'],
@@ -35,9 +38,8 @@ class Auth extends CI_Controller
 						'no_telp' => $siswa['no_telp'],
 					];
 
-					$this->session->userdata($siswa);
-					$this->session->set_flashdata('message', '<div class="alert alert-success font-weight-bold my-3">Selamat datang, ' . $siswa['nama_siswa'] . '.</div>');
-					redirect('home/dashboard');
+					$this->session->set_userdata($siswa);
+					redirect('home');
 				} else {
 					$this->session->set_flashdata('message', '<div class="alert alert-danger font-weight-bold mb-0">Password yang Anda masukkan salah.</div>');
 					redirect('auth');
@@ -67,7 +69,9 @@ class Auth extends CI_Controller
 
 		if ($this->form_validation->run() == false) {
 			$data['title'] = 'Registrasi Siswa';
+			$this->load->view('template-landing/header', $data);
 			$this->load->view('landing/registration', $data);
+			$this->load->view('template-landing/footer', $data);
 		} else {
 			$siswa = [
 				'nama_siswa' => $this->input->post('nama_siswa'),

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Siswa extends CI_Controller
+class Guru extends CI_Controller
 {
 	public function __construct()
 	{
@@ -16,20 +16,20 @@ class Siswa extends CI_Controller
 		$data['ekskul'] = $this->m_ekskul->getEkskul()->result_array();
 
 		$data['title'] = 'Daftar Siswa';
-		$this->load->view('template/header', $data);
-		$this->load->view('siswa/index', $data);
-		$this->load->view('template/footer');
+		$this->load->view('template-admin/header', $data);
+		$this->load->view('guru/index', $data);
+		$this->load->view('template-admin/footer');
 	}
 
-	public function detail($id_siswa)
+	public function detail_siswa($id_siswa)
 	{
 		$data['siswa'] = $this->m_siswa->getDetailSiswa($id_siswa)->row_array();
 		$data['ekskul'] = $this->m_siswa->getEkskulSiswa($id_siswa)->result_array();
 
 		$data['title'] = 'Detail Siswa';
-		$this->load->view('template/header', $data);
-		$this->load->view('siswa/detail', $data);
-		$this->load->view('template/footer');
+		$this->load->view('template-admin/header', $data);
+		$this->load->view('guru/detail', $data);
+		$this->load->view('template-admin/footer');
 	}
 
 	public function filter_siswa()
@@ -67,7 +67,7 @@ class Siswa extends CI_Controller
 				$output .= '</h6>
 						</td>
 						<td>
-							<a class="btn btn-secondary" href="' . base_url('siswa/detail/') . $data['id_siswa'] . '">
+							<a class="btn btn-secondary" href="' . base_url('guru/detail/') . $data['id_siswa'] . '">
 								Detail Siswa
 							</a>
 						</td>
@@ -88,7 +88,7 @@ class Siswa extends CI_Controller
 		echo json_encode($siswa);
 	}
 
-	public function daftar_ekskul()
+	public function daftar_ekskul_siswa()
 	{
 		$this->form_validation->set_rules('id_siswa', 'Siswa', 'trim|required');
 		$this->form_validation->set_rules('nama_siswa', '-', 'trim|required');
@@ -101,9 +101,9 @@ class Siswa extends CI_Controller
 
 		if ($this->form_validation->run() == false) {
 			$data['title'] = 'Tambah Ekstrakurikuler';
-			$this->load->view('template/header', $data);
-			$this->load->view('siswa/daftar_ekskul', $data);
-			$this->load->view('template/footer');
+			$this->load->view('template-admin/header', $data);
+			$this->load->view('guru/daftar-ekskul', $data);
+			$this->load->view('template-admin/footer');
 		} else {
 			$daftar = [
 				'id_siswa' => $this->input->post('id_siswa'),
@@ -116,14 +116,14 @@ class Siswa extends CI_Controller
 			if (!$result) {
 				$error = $this->db->error();
 				$this->session->set_flashdata('message', '<div class="alert alert-warning font-weight-bold">Siswa sudah terdaftar. Kode error[' . $error['code'] . ']</div>');
-				redirect('siswa/daftar_ekskul');
+				redirect('guru/daftar-ekskul');
 			}
 			$this->session->set_flashdata('message', '<div class="alert alert-success font-weight-bold">Pendaftaran berhasil.</div>');
-			redirect('siswa/daftar_ekskul');
+			redirect('guru/daftar-ekskul');
 		}
 	}
 
-	public function tambah()
+	public function tambah_siswa()
 	{
 		$this->form_validation->set_rules('nama_siswa', 'Nama Siswa', 'trim|required');
 		$this->form_validation->set_rules('nisn', 'NISN', 'trim|required');
@@ -135,9 +135,9 @@ class Siswa extends CI_Controller
 
 		if ($this->form_validation->run() == false) {
 			$data['title'] = 'Registrasi Siswa';
-			$this->load->view('template/header', $data);
-			$this->load->view('siswa/tambah', $data);
-			$this->load->view('template/footer');
+			$this->load->view('template-admin/header', $data);
+			$this->load->view('guru/tambah', $data);
+			$this->load->view('template-admin/footer');
 		} else {
 			$siswa = [
 				'nama_siswa' => $this->input->post('nama_siswa'),
@@ -164,9 +164,9 @@ class Siswa extends CI_Controller
 
 	// 	if ($this->form_validation->run() == false) {
 	// 		$data['title'] = 'Edit Ekstrakurikuler';
-	// 		$this->load->view('template/header', $data);
-	// 		$this->load->view('siswa/edit', $data);
-	// 		$this->load->view('template/footer');
+	// 		$this->load->view('template-admin/header', $data);
+	// 		$this->load->view('guru/edit', $data);
+	// 		$this->load->view('template-admin/footer');
 	// 	} else {
 	// 		if (!empty($_FILES['foto_ekskul']['name'])) {
 	// 			$config['upload_path'] = './assets/images/ekskul_images/';
@@ -197,7 +197,7 @@ class Siswa extends CI_Controller
 	// 			} else {
 	// 				$upload_error = $this->upload->display_errors();
 	// 				$this->session->set_flashdata('upload_error', '<div class="alert alert-warning font-weight-bold">' . $upload_error .  '</div>');
-	// 				redirect('siswa/edit/' . $id_ekskul);
+	// 				redirect('guru/edit/' . $id_ekskul);
 	// 			}
 	// 		} else {
 	// 			$ekskul_baru = [

@@ -37,7 +37,7 @@
 
     <div class="clearfix"></div>
 
-    <a class="btn btn-secondary mt-4 ml-2 float-right" href="<?= base_url('siswa/daftar_ekskul') ?>">
+    <a class="btn btn-secondary mt-4 ml-2 float-right" href="<?= base_url('guru/daftar_ekskul') ?>">
         Daftar Ekskul Baru
     </a>
     <a class="btn btn-outline-secondary mt-4 ml-2 float-right" href="<?= base_url('siswa') ?>">

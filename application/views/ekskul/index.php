@@ -49,6 +49,9 @@
                                                 <img class="w-50" src="<?= base_url('assets/images/ekskul_images/') . $data['foto_ekskul'] ?>" alt="<?= $data['foto_ekskul'] ?>">
                                             </td>
                                             <td>
+                                                <a class="btn btn-warning" href="<?= base_url('ekskul/detail/') . $data['id_ekskul'] ?>">
+                                                    Detail
+                                                </a>
                                                 <a class="btn btn-warning" href="<?= base_url('ekskul/edit/') . $data['id_ekskul'] ?>">
                                                     Edit Ekskul
                                                 </a>

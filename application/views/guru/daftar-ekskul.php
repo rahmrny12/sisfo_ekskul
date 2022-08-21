@@ -32,7 +32,7 @@
             <div class="x_content">
                 <?= form_error('id_siswa', '<div class="alert alert-warning font-weight-bold">', '</div>') ?>
                 <?= form_error('ekskul', '<div class="alert alert-warning font-weight-bold">', '</div>') ?>
-                <form name="formPendaftaran" action="<?= base_url('siswa/daftar_ekskul') ?>" method="post" enctype="multipart/form-data" novalidate>
+                <form name="formPendaftaran" action="<?= base_url('guru/daftar_ekskul') ?>" method="post" enctype="multipart/form-data" novalidate>
                     <div class="field item form-group">
                         <label class="col-form-label col-md-3 col-sm-3  label-align" for="nisn">NISN Siswa<span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6">

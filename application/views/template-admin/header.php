@@ -46,8 +46,8 @@
 
             <div class="clearfix"></div>
 
-            <?php $this->load->view('template/sidebar') ?>
-            <?php $this->load->view('template/topbar') ?>
+            <?php $this->load->view('template-admin/sidebar') ?>
+            <?php $this->load->view('template-admin/topbar') ?>
 
             <!-- page content -->
             <div class="right_col" role="main">

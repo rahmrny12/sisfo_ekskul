@@ -37,13 +37,13 @@
                 </p>
 
                 <div class="mx-lg-auto">
-                <p>
-                    <a href="https://www.instagram.com/smkn8_official/" target="blank">
-                        <i class="fa fa-instagram"></i>
-                        Ikuti kami di instagram
-                    </a>
-                </p>
-            </div>
+                    <p>
+                        <a href="https://www.instagram.com/smkn8_official/" target="blank">
+                            <i class="fa fa-instagram"></i>
+                            Ikuti kami di instagram
+                        </a>
+                    </p>
+                </div>
             </div>
 
         </div>
@@ -57,6 +57,47 @@
 <script src="<?= base_url('vendor/digital_trend/') ?>js/owl.carousel.min.js"></script>
 <script src="<?= base_url('vendor/digital_trend/') ?>js/smoothscroll.js"></script>
 <script src="<?= base_url('vendor/digital_trend/') ?>js/custom.js"></script>
+
+<!-- sweet alert -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function logoutConfirm() {
+        Swal.fire({
+            title: 'Yakin ingin keluar?',
+            text: "Setelah melakukan logout, Anda harus melakukan login ulang.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ff3636',
+            cancelButtonColor: '#b3b3b3',
+            confirmButtonText: 'Logout.'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "<?= base_url('auth/logout') ?>";
+            }
+        })
+    }
+
+    function daftarEkskulConfirm() {
+        var nama_siswa = document.getElementById('nama_siswa');
+        var ekskul = document.getElementById('ekskul');
+
+        Swal.fire({
+            title: 'Apakah data siswa dan pilihan ekskul sudah benar?',
+            html: "<pre>Nama siswa : " + nama_siswa.value + "\nekskul dipilih : " + ekskul.options[ekskul.selectedIndex].text + "</pre>Tekan kirim apabila semuanya sudah benar.",
+            icon: 'info',
+            showCancelButton: true,
+            reverseButtons: true,
+            confirmButtonColor: '#2484f2',
+            cancelButtonColor: '#b3b3b3',
+            confirmButtonText: 'Kirim'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.formPendaftaran.submit();
+            }
+        })
+    }
+</script>
 
 </body>
 
