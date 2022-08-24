@@ -13,8 +13,9 @@
             <div class="col-lg-6 mx-auto col-md-10 col-12 mb-5">
 
                 <?= $this->session->flashdata('message') ?>
+                <?php $this->session->unset_userdata('message') ?>
 
-                <form action="<?= base_url('siswa/daftar_ekskul/') . $default_ekskul ?>" method="post" class="contact-form" role="form">
+                <form action="<?= base_url('landing/daftar_ekskul/') . $default_ekskul ?>" method="post" class="contact-form" role="form">
                     <div class="row">
                         <div class="col-lg-12">
                             <input class="form-control" value="<?= $this->session->userdata('nama_siswa') ?>" name="nama_siswa" id="nama_siswa" style="color: var(--primary-color);" readonly></input>

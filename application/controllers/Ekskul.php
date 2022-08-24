@@ -7,7 +7,9 @@ class Ekskul extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		check_admin_login();
 		$this->load->model('m_ekskul');
+		$this->load->model('m_guru');
 		$this->load->model('m_siswa');
 	}
 
@@ -23,7 +25,8 @@ class Ekskul extends CI_Controller
 
 	public function detail($id_ekskul)
 	{
-		$data['ekskul'] = $this->m_ekskul->getEkskulDetail($id_ekskul)->row_array();
+		$data['ekskul'] = $this->m_ekskul->getEkskulDetail($id_ekskul);
+		$data['guru'] = $this->m_guru->getGuru()->result_array();
 
 		$data['title'] = 'Detail Ekskul';
 		$this->load->view('template-admin/header', $data);
@@ -119,7 +122,7 @@ class Ekskul extends CI_Controller
 
 	public function edit($id_ekskul)
 	{
-		$data['ekskul'] = $this->m_ekskul->getEkskulDetail($id_ekskul)->row_array();
+		$data['ekskul'] = $this->m_ekskul->getEkskulDetail($id_ekskul);
 
 		$this->form_validation->set_rules('nama_ekskul', 'Nama ekskul', 'trim|required');
 		$this->form_validation->set_rules('deskripsi', 'Deskripsi', 'trim|required');
@@ -155,7 +158,7 @@ class Ekskul extends CI_Controller
 
 					$this->m_ekskul->updateEkskul($id_ekskul, $ekskul_baru);
 					$this->session->set_flashdata('message', '<div class="alert alert-success font-weight-bold">Ekskul baru diedit.</div>');
-					redirect('ekskul');
+					redirect('ekskul/detail/' . $id_ekskul);
 				} else {
 					$upload_error = $this->upload->display_errors();
 					$this->session->set_flashdata('upload_error', '<div class="alert alert-warning font-weight-bold">' . $upload_error .  '</div>');
@@ -169,15 +172,102 @@ class Ekskul extends CI_Controller
 
 				$this->m_ekskul->updateEkskul($id_ekskul, $ekskul_baru);
 				$this->session->set_flashdata('message', '<div class="alert alert-success font-weight-bold">Ekskul berhasil diedit.</div>');
-				redirect('ekskul');
+				redirect('ekskul/detail/' . $id_ekskul);
 			}
 		}
 	}
 
-	public function hapus($id_ekskul)
+	// public function hapus($id_ekskul)
+	// {
+	// 	$this->m_ekskul->deleteEkskul($id_ekskul);
+	// 	$this->session->set_flashdata('message', '<div class="alert alert-warning font-weight-bold">Ekskul berhasil dihapus.</div>');
+	// 	redirect('ekskul');
+	// }
+
+	public function tambah_pembimbing($id_ekskul)
 	{
-		$this->m_ekskul->deleteEkskul($id_ekskul);
-		$this->session->set_flashdata('message', '<div class="alert alert-warning font-weight-bold">Ekskul berhasil dihapus.</div>');
-		redirect('ekskul');
+		$this->form_validation->set_rules('guru', 'Guru', 'required');
+
+		if ($this->form_validation->run() == false) {
+			redirect('ekskul/detail/' . $id_ekskul);
+		} else {
+			$id_guru = $this->input->post('guru');
+			$this->m_guru->insertGuruToEkskul($id_ekskul, $id_guru);
+			$this->session->set_flashdata('message', '<div class="alert alert-success font-weight-bold">Guru baru berhasil ditambahkan.</div>');
+			redirect('ekskul/detail/' . $id_ekskul);
+		}
+	}
+
+	public function edit_pembimbing($id_ekskul)
+	{
+		$data['ekskul'] = $this->m_ekskul->getEkskulDetail($id_ekskul);
+
+		$this->form_validation->set_rules('nama_ekskul', 'Nama ekskul', 'trim|required');
+		$this->form_validation->set_rules('deskripsi', 'Deskripsi', 'trim|required');
+
+		if ($this->form_validation->run() == false) {
+			$data['title'] = 'Edit Ekstrakurikuler';
+			$this->load->view('template-admin/header', $data);
+			$this->load->view('ekskul/edit', $data);
+			$this->load->view('template-admin/footer');
+		} else {
+			if (!empty($_FILES['foto_ekskul']['name'])) {
+				$config['upload_path'] = './assets/images/ekskul_images/';
+				$config['allowed_types'] = 'jpg|jpeg|png';
+				$config['encrypt_name'] = true;
+				$config['max_size'] = '2048';
+				$config['max_width'] = '1024';
+				$config['max_height'] = '1024';
+
+				$this->load->library('upload', $config);
+
+				if ($this->upload->do_upload('foto_ekskul')) {
+					$foto_lama = './assets/images/ekskul_images/' . $data['ekskul']['foto_ekskul'];
+					if (file_exists($foto_lama)) {
+						unlink($foto_lama);
+					}
+
+					$foto_ekskul = $this->upload->data();
+					$ekskul_baru = [
+						'nama_ekskul' => $this->input->post('nama_ekskul'),
+						'deskripsi' => $this->input->post('deskripsi'),
+						'foto_ekskul' => $foto_ekskul['file_name'],
+					];
+
+					$this->m_ekskul->updateEkskul($id_ekskul, $ekskul_baru);
+					$this->session->set_flashdata('message', '<div class="alert alert-success font-weight-bold">Ekskul baru diedit.</div>');
+					redirect('ekskul/detail/' . $id_ekskul);
+				} else {
+					$upload_error = $this->upload->display_errors();
+					$this->session->set_flashdata('upload_error', '<div class="alert alert-warning font-weight-bold">' . $upload_error .  '</div>');
+					redirect('ekskul/edit/' . $id_ekskul);
+				}
+			} else {
+				$ekskul_baru = [
+					'nama_ekskul' => $this->input->post('nama_ekskul'),
+					'deskripsi' => $this->input->post('deskripsi'),
+				];
+
+				$this->m_ekskul->updateEkskul($id_ekskul, $ekskul_baru);
+				$this->session->set_flashdata('message', '<div class="alert alert-success font-weight-bold">Ekskul berhasil diedit.</div>');
+				redirect('ekskul/detail/' . $id_ekskul);
+			}
+		}
+	}
+
+	public function hapus_pembimbing($id_ekskul)
+	{
+		$this->m_guru->deleteGuruFromEkskul($id_ekskul);
+		redirect('ekskul/detail/' . $id_ekskul);
+	}
+
+	public function required_option($option)
+	{
+		if ($option == '') {
+			$this->form_validation->set_message('required_option', 'Pilih guru pembimbing terlebih dahulu');
+			return false;
+		} else {
+			return true;
+		}
 	}
 }

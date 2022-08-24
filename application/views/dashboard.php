@@ -2,6 +2,8 @@
 <div class="col-lg-12">
     <div class="my-4">
     <?= $this->session->flashdata('message') ?>
+    <?php $this->session->unset_userdata('message') ?>
+
     </div>
     <div class="row" style="display: inline;">
         <div class="col-md-4 col-sm-3 tile_stats_count">

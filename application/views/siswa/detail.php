@@ -29,7 +29,7 @@
                             <h6>Tanggal pendaftaran : <?= date('d-m-Y', strtotime($data['waktu_pendaftaran'])) ?></h6>
                             <h6>Waktu pendaftaran : <?= date('H:i', strtotime($data['waktu_pendaftaran'])) ?></h6>
                             <?php if ($data['dikonfirmasi'] == false) : ?>
-                                <a class="btn btn-info col-6" href="<?= base_url('guru/') . 'konfirmasi_ekskul?id_ekskul=' . $data['id_ekskul'] . '&id_siswa=' . $data['id_siswa'] ?>">
+                                <a class="btn btn-info col-6" href="<?= base_url('siswa/') . 'konfirmasi_ekskul?id_ekskul=' . $data['id_ekskul'] . '&id_siswa=' . $data['id_siswa'] ?>">
                                     Konfirmasi Pendaftaran
                                 </a>
                             <?php endif; ?>
@@ -42,9 +42,9 @@
 
     <div class="clearfix"></div>
 
-    <a class="btn btn-secondary mt-4 ml-2 float-right" href="<?= base_url('guru/daftar_ekskul') ?>">
+    <!-- <a class="btn btn-secondary mt-4 ml-2 float-right" href="<?= base_url('siswa/daftar_ekskul') ?>">
         Daftar Ekskul Baru
-    </a>
-    <a class="btn btn-outline-secondary mt-4 ml-2 float-right" href="<?= base_url('guru') ?>">
+    </a> -->
+    <a class="btn btn-outline-secondary mt-4 ml-2 float-right" href="<?= base_url('siswa') ?>">
         Kembali
     </a>

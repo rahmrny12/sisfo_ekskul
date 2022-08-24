@@ -3,55 +3,134 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Siswa extends CI_Controller
 {
-
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('m_ekskul');
+		check_admin_login();
 		$this->load->model('m_siswa');
+		$this->load->model('m_ekskul');
 	}
-	
+
 	public function index()
 	{
+		$data['siswa'] = $this->m_siswa->getSiswa();
 		$data['ekskul'] = $this->m_ekskul->getEkskul()->result_array();
-		
-		$data['title'] = 'Sisfo Ekskul';
-		$this->load->view('template-landing/header', $data);
-		$this->load->view('template-landing/navbar', $data);
-		$this->load->view('landing/index', $data);
-		$this->load->view('template-landing/footer');
+
+		$data['title'] = 'Daftar Siswa';
+		$this->load->view('template-admin/header', $data);
+		$this->load->view('siswa/index', $data);
+		$this->load->view('template-admin/footer');
 	}
 
-	public function detail_ekskul($id_ekskul)
+	public function dashboard()
 	{
-		$data['ekskul'] = $this->m_ekskul->getEkskulDetail($id_ekskul)->row_array();
-		
-		$data['sudah_daftar'] = $this->m_ekskul->alreadyRegisterToEkskul($id_ekskul);
-		$data['title'] = 'Detail Ekskul';
-		$this->load->view('template-landing/header', $data);
-		$this->load->view('template-landing/navbar', $data);
-		$this->load->view('landing/detail-ekskul', $data);
-		$this->load->view('template-landing/footer');
+		$data['total_kuis'] = $this->m_ekskul->totalKuis();
+
+		$data['title'] = 'Dashboard';
+		$this->load->view('template-admin/header', $data);
+		$this->load->view('dashboard', $data);
+		$this->load->view('template-admin/footer');
 	}
 
-	public function daftar_ekskul($id_ekskul)
+	public function detail($id_siswa)
 	{
-		$this->form_validation->set_rules('alasan', 'Alasan', 'trim|required|max_length[225]');
+		$data['siswa'] = $this->m_siswa->getDetailSiswa($id_siswa)->row_array();
+		$data['ekskul'] = $this->m_siswa->getEkskulSiswa($id_siswa)->result_array();
+
+		$data['title'] = 'Detail Siswa';
+		$this->load->view('template-admin/header', $data);
+		$this->load->view('siswa/detail', $data);
+		$this->load->view('template-admin/footer');
+	}
+
+	public function filter_siswa()
+	{
+		$keyword = $this->input->post('keyword');
+		$filter_siswa = $this->input->post('filter_siswa');
+		$filter_ekskul = $this->input->post('filter_ekskul');
+		$siswa = $this->m_siswa->filterSiswa($keyword, $filter_siswa, $filter_ekskul);
+
+		$output = "";
+		if ($siswa != null) {
+			foreach ($siswa as $data) {
+				$output .= '
+				<tr>
+					<td>
+						<h6>' . ucwords($data['nama_siswa']) . '</h6>
+					</td>
+					<td>
+						<h6>' . $data['nisn'] . '</h6>
+					</td>
+					<td>
+						<h6>' . strtoupper($data['kelas']) . '</h6>
+					</td>
+					<td>
+						<h6>';
+
+				if ($data['ekskul'] == null) {
+					$output .= 'Belum ada ekskul diikuti.';
+				} else {
+					foreach ($data['ekskul'] as $ekskul) {
+						if ($ekskul['dikonfirmasi']) {
+							$output .= '<a href="' . base_url('siswa/detail/') . $data['id_siswa'] . '">
+										<span class="badge badge-pill badge-success py-3 px-4 mb-1">
+											' . ucwords($ekskul['nama_ekskul']) . '
+										</span>
+									</a>';
+						} else {
+							$output .= '<a href="' . base_url('siswa/detail/') . $data['id_siswa'] . '">
+							<span class="badge badge-pill badge-secondary py-3 px-4 mb-1">
+							' . ucwords($ekskul['nama_ekskul']) . '
+							</span>
+							</a>';
+						}
+					}
+				}
+
+				$output .= '</h6>
+						</td>
+						<td>
+							<a class="btn btn-secondary" href="' . base_url('siswa/detail/') . $data['id_siswa'] . '">
+								Detail Siswa
+							</a>
+						</td>
+					</tr>
+					';
+			}
+		} else {
+			$output = '<tr><td colspan="5" class="text-center pt-4"><h6>Data siswa tidak ditemukan.</h6></td></tr>';
+		}
+
+		echo $output;
+	}
+
+	public function cari_siswa()
+	{
+		$nisn = $this->input->post('nisn');
+		$siswa = $this->m_siswa->getSiswaByNISN($nisn)->row();
+		echo json_encode($siswa);
+	}
+
+	public function daftar_ekskul()
+	{
+		$this->form_validation->set_rules('id_siswa', 'Siswa', 'trim|required');
+		$this->form_validation->set_rules('nama_siswa', '-', 'trim|required');
+		$this->form_validation->set_rules('kelas', '-', 'trim|required');
+		$this->form_validation->set_rules('alamat', '-', 'trim|required');
+		$this->form_validation->set_rules('no_telp', '-', 'trim|required');
 		$this->form_validation->set_rules('ekskul', 'Ekstrakurikuler', 'trim|required');
 
-		$data['default_ekskul'] = $id_ekskul;
 		$data['ekskul'] = $this->m_ekskul->getEkskul()->result_array();
 
 		if ($this->form_validation->run() == false) {
-			$data['title'] = 'Daftar Ekstrakurikuler';
-			$this->load->view('template-landing/header', $data);
-			$this->load->view('landing/daftar-ekskul', $data);
-			$this->load->view('template-landing/footer');
+			$data['title'] = 'Tambah Ekstrakurikuler';
+			$this->load->view('template-admin/header', $data);
+			$this->load->view('siswa/daftar-ekskul', $data);
+			$this->load->view('template-admin/footer');
 		} else {
 			$daftar = [
-				'id_siswa' => $this->session->userdata('id_siswa'),
+				'id_siswa' => $this->input->post('id_siswa'),
 				'id_ekskul' => $this->input->post('ekskul'),
-				'alasan_bergabung' => $this->input->post('alasan'),
 				'waktu_pendaftaran' => date("Y-m-d H:i:s"),
 			];
 
@@ -60,10 +139,18 @@ class Siswa extends CI_Controller
 			if (!$result) {
 				$error = $this->db->error();
 				$this->session->set_flashdata('message', '<div class="alert alert-warning font-weight-bold">Siswa sudah terdaftar. Kode error[' . $error['code'] . ']</div>');
-				redirect('siswa/detail_ekskul/' . $id_ekskul);
+				redirect('siswa/daftar-ekskul');
 			}
 			$this->session->set_flashdata('message', '<div class="alert alert-success font-weight-bold">Pendaftaran berhasil.</div>');
-			redirect('siswa/detail_ekskul/' . $id_ekskul);
+			redirect('siswa/daftar-ekskul');
 		}
+	}
+
+	public function konfirmasi_ekskul()
+	{
+		$id_ekskul = $this->input->get('id_ekskul');
+		$id_siswa = $this->input->get('id_siswa');
+		$this->m_ekskul->confirmEkskul($id_ekskul, $id_siswa);
+		redirect('siswa/detail/' . $id_siswa);
 	}
 }

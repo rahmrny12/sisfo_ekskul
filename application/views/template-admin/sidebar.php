@@ -1,11 +1,11 @@
 <!-- menu profile quick info -->
-<div class="profile clearfix">
-    <div class="profile_pic">
+<div class="profile clearfix mx-3">
+    <!-- <div class="profile_pic">
         <img src="<?= base_url('vendor/gentelella/production/') ?>images/img.jpg" alt="..." class="img-circle profile_img">
-    </div>
+    </div> -->
     <div class="profile_info">
         <span>Selamat Datang,</span>
-        <h2>Admin Ekskul</h2>
+        <h2><?= $this->session->userdata('nama') ?></h2>
     </div>
 </div>
 <!-- /menu profile quick info -->
@@ -15,21 +15,8 @@
 <!-- sidebar menu -->
 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
     <div class="menu_section">
-        <h3>Umum</h3>
-        <ul class="nav side-menu"><li><a href="<?= base_url('siswa/dashboard') ?>">Dashboard</a></li></ul>
-        <ul class="nav side-menu">
-            <li>
-                <a>
-                    <i class="fa fa-wheelchair-alt "></i>Siswa
-                    <span class="fa fa-chevron-down"></span>
-                </a>
-                <ul class="nav child_menu">
-                    <li><a href="<?= base_url('guru/daftar_ekskul_siswa') ?>">Pendaftaran Ekskul</a></li>
-                    <li><a href="<?= base_url('guru') ?>">Daftar Siswa</a></li>
-                    <li><a href="<?= base_url('guru/tambah_siswa') ?>">Tambah Siswa</a></li>
-                </ul>
-            </li>
-        </ul>
+        <ul class="nav side-menu" style="background-color: #24394d;"><li><a href="<?= base_url('siswa/dashboard') ?>">Dashboard</a></li></ul>
+        <ul class="nav side-menu" style="background-color: #24394d;"><li><a href="<?= base_url('siswa') ?>">Daftar Siswa</a></li></ul>
         <ul class="nav side-menu">
             <li>
                 <a>
@@ -39,6 +26,18 @@
                 <ul class="nav child_menu">
                     <li><a href="<?= base_url('ekskul') ?>">Daftar Ekskul</a></li>
                     <li><a href="<?= base_url('ekskul/tambah') ?>">Tambah Ekskul</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul class="nav side-menu">
+            <li>
+                <a>
+                    <i class="fa fa-wheelchair-alt "></i>Guru
+                    <span class="fa fa-chevron-down"></span>
+                </a>
+                <ul class="nav child_menu">
+                    <li><a href="<?= base_url('guru') ?>">Daftar Guru</a></li>
+                    <li><a href="<?= base_url('guru/tambah') ?>">Tambah Guru</a></li>
                 </ul>
             </li>
         </ul>

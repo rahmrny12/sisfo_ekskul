@@ -2,6 +2,7 @@
 <section class="project-detail section-padding-half">
     <div class="container">
         <?= $this->session->flashdata('message') ?>
+        <?php $this->session->unset_userdata('message') ?>
 
         <div class="row">
             <div class="col-lg-9 mx-auto col-md-10 col-12 mt-lg-5 text-center" data-aos="fade-up">
@@ -26,21 +27,31 @@
 
                 <h2><?= $ekskul['nama_ekskul'] ?></h2>
 
+                <?php if ($ekskul['guru_pembimbing'] != null) : ?>
+                    <h6 class="mb-3"><?= $ekskul['guru_pembimbing']['nama_guru'] ?></h6>
+                <?php endif; ?>
                 <p class="mt-3 mb-4"><?= $ekskul['deskripsi'] ?></p>
+                <button class="btn btn-info p-3" data-toggle="modal" data-target="#anggotaModal">
+                    <span class="font-weight-bold">Jumlah Anggota : <?= count($anggota) ?></span>
+                </button>
             </div>
         </div>
     </div>
 
     <section class="section-padding-half mx-auto">
         <?php if ($sudah_daftar) : ?>
-            <div class="container text-center">
-                <h3>Anda sudah terdaftar <strong><?= $ekskul['nama_ekskul'] ?></strong></h3>
+            <div class="container text-center col-md-8">
+                <?php if ($sudah_daftar['dikonfirmasi']) : ?>
+                    <h3>Anda sudah terdaftar <strong><?= $ekskul['nama_ekskul'] ?></strong></h3>
+                <?php else : ?>
+                    <h3>Anda sudah mendaftar <strong><?= $ekskul['nama_ekskul'] ?></strong> dan menunggu konfirmasi dari gurumu.</h3>
+                <?php endif; ?>
             </div>
         <?php else : ?>
             <div class="container text-center">
                 <h3>Tertarik untuk bergabung?</h3>
                 <?php if ($this->session->has_userdata('id_siswa')) : ?>
-                    <a href="<?= base_url('siswa/daftar_ekskul/') . $ekskul['id_ekskul'] ?>" class="btn btn-lg mt-3 text-white" style="background-color: var(--primary-color);">Daftar Sekarang</a>
+                    <a href="<?= base_url('landing/daftar_ekskul/') . $ekskul['id_ekskul'] ?>" class="btn btn-lg mt-3 text-white" style="background-color: var(--primary-color);">Daftar Sekarang</a>
                 <?php else : ?>
                     <a href="<?= base_url('auth') ?>" class="btn btn-lg mt-3 text-white" style="background-color: var(--primary-color);">Login dulu untuk mendaftar</a>
                 <?php endif; ?>
@@ -48,3 +59,30 @@
         <?php endif; ?>
     </section>
 </section>
+
+<!-- modal jadwal -->
+<div class="modal fade" id="anggotaModal" tabindex="-1" role="dialog" aria-labelledby="anggotaModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="anggotaModalLabel">Anggota Aktif Ekskul</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <?php foreach ($anggota as $data) : ?>
+                        <li class="list-group-item list-group-item-action">
+                            <span><?= $data['nama_siswa'] ?></span>
+                            <span class="float-right"><?= $data['kelas'] ?></span>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>

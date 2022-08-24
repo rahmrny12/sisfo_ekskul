@@ -7,6 +7,7 @@
 
 <div class="mb-2">
     <?= $this->session->flashdata('message') ?>
+    <?php $this->session->unset_userdata('message') ?>
 </div>
 
 <div class="row">
@@ -14,25 +15,12 @@
         <div class="x_panel">
             <div class="x_title">
                 <h2>Pendaftaran Ekskul</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Settings 1</a>
-                            <a class="dropdown-item" href="#">Settings 2</a>
-                        </div>
-                    </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
-                </ul>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
                 <?= form_error('id_siswa', '<div class="alert alert-warning font-weight-bold">', '</div>') ?>
                 <?= form_error('ekskul', '<div class="alert alert-warning font-weight-bold">', '</div>') ?>
-                <form name="formPendaftaran" action="<?= base_url('guru/daftar_ekskul') ?>" method="post" enctype="multipart/form-data" novalidate>
+                <form name="formPendaftaran" action="<?= base_url('siswa/daftar_ekskul') ?>" method="post" enctype="multipart/form-data" novalidate>
                     <div class="field item form-group">
                         <label class="col-form-label col-md-3 col-sm-3  label-align" for="nisn">NISN Siswa<span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6">

@@ -66,7 +66,7 @@
 
                                    <div class="project-info shadow-sm" style="bottom: -32px;">
                                         <h3>
-                                             <a href="<?= base_url('siswa/detail_ekskul/') . $data['id_ekskul'] ?>">
+                                             <a href="<?= base_url('landing/detail_ekskul/') . $data['id_ekskul'] ?>">
                                                   <span><?= $data['nama_ekskul'] ?></span>
                                                   <i class="fa fa-angle-right project-icon"></i>
                                              </a>

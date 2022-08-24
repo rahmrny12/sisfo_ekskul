@@ -29,6 +29,7 @@
                     <div class="col-sm-12">
                         <div class="mb-2">
                             <?= $this->session->flashdata('message') ?>
+                            <?php $this->session->unset_userdata('message') ?>
                         </div>
                         <div class="card-box table-responsive">
                             <table id="datatable" class="table table-striped table-bordered">
@@ -52,12 +53,9 @@
                                                 <a class="btn btn-warning" href="<?= base_url('ekskul/detail/') . $data['id_ekskul'] ?>">
                                                     Detail
                                                 </a>
-                                                <a class="btn btn-warning" href="<?= base_url('ekskul/edit/') . $data['id_ekskul'] ?>">
-                                                    Edit Ekskul
-                                                </a>
-                                                <button class="btn btn-secondary" onclick="deleteEkskulConfirm(<?= $data['id_ekskul'] ?>)">
+                                                <!-- <button class="btn btn-secondary" onclick="deleteEkskulConfirm(<?= $data['id_ekskul'] ?>)">
                                                     Hapus Ekskul
-                                                </button>
+                                                </button> -->
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

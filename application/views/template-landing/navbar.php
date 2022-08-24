@@ -3,7 +3,7 @@
      <!-- MENU BAR -->
      <nav class="navbar navbar-expand-lg">
           <div class="container">
-               <a class="navbar-brand mb-2" href="<?= base_url('siswa') ?>">
+               <a class="navbar-brand mb-2" href="<?= base_url('landing') ?>">
                     <h3 class="d-inline ml-3">Sistem Informasi Ekstrakurikuler</h2>
                </a>
 
@@ -13,12 +13,14 @@
 
                <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto flex align-items-center">
-                         <li class="nav-item" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <a href="#ekskul" class="nav-link smoothScroll">
-                                   <h6>Ekstrakurikuler</h6>
-                              </a>
-                         </li>
-                         <li class="nav-item text-center">
+                         <?php if ($this->uri->segment(2) == '' || $this->uri->segment(2) == 'index') : ?>
+                              <li class="nav-item">
+                                   <a href="#ekskul" class="nav-link smoothScroll">
+                                        <h6>Ekstrakurikuler</h6>
+                                   </a>
+                              </li>
+                         <?php endif; ?>
+                         <li class="nav-item text-center data-toggle=" dropdown" aria-haspopup="true" aria-expanded="false"">
                               <?= !$this->session->has_userdata('nama_siswa')
                                    ? '<a href=' . base_url('auth') . ' class="nav-link contact">Login</a>'
                                    : '<div class="dropdown">
