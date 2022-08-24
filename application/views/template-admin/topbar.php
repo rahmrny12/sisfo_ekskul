@@ -11,7 +11,7 @@
                         <?= $this->session->userdata('nama') ?>
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                        <button type="button" class="dropdown-item" onclick="logoutConfirm()"><i class="fa fa-sign-out pull-right"></i> Log Out</button>
+                        <button type="button" class="dropdown-item" onclick="logoutConfirm('<?= base_url('auth/logout') ?>')"><i class="fa fa-sign-out pull-right"></i> Log Out</button>
                     </div>
                 </li>
 

@@ -27,11 +27,14 @@ class M_siswa extends CI_Model
 
     public function filterSiswa($keyword, $filter_siswa, $filter_ekskul)
     {
+        $this->db->from('siswa');
         $this->db->like('nama_siswa', $keyword);
+
         if ($filter_siswa == 'baru_daftar') {
             $this->db->order_by('id_siswa', 'DESC');
         }
-        $siswa = $this->db->get('siswa')->result_array();
+
+        $siswa = $this->db->get()->result_array();
 
         $index = 0;
         foreach ($siswa as $data) {
@@ -40,17 +43,17 @@ class M_siswa extends CI_Model
         }
 
         if ($filter_siswa == 'belum_mengikuti') {
-            $siswa = array_filter($siswa, static function ($data) {
-                return $data['ekskul'] == null;
-            });
-        } else if ($filter_ekskul != "") {
             $siswa = array_filter($siswa, static function ($data) use ($filter_ekskul) {
-                foreach ($data['ekskul'] as $ekskul) {
-                    return $ekskul['id_ekskul'] == $filter_ekskul;
-                }
+                return $data['ekskul'] == null;
             });
         }
 
+        if ($filter_ekskul != null) {
+            $siswa = array_filter($siswa, static function ($data) use ($filter_ekskul) {
+                return array_search($filter_ekskul, array_column($data['ekskul'], 'id_ekskul'));
+            });
+        }
+        
         return $siswa;
     }
 
@@ -66,7 +69,6 @@ class M_siswa extends CI_Model
 
     public function getEkskulSiswa($id_siswa)
     {
-        $this->db->select('*');
         $this->db->from('pendaftaran');
         $this->db->join('ekskul', 'ekskul.id_ekskul=pendaftaran.id_ekskul');
         $this->db->where(['pendaftaran.id_siswa' => $id_siswa]);
@@ -82,5 +84,10 @@ class M_siswa extends CI_Model
     public function insertPendaftaran($data)
     {
         return $this->db->insert('pendaftaran', $data);
+    }
+
+    public function removeSiswaFromEkskul($id_ekskul, $id_siswa)
+    {
+        return $this->db->delete('pendaftaran', ['id_ekskul' => $id_ekskul, 'id_siswa' => $id_siswa]);
     }
 }

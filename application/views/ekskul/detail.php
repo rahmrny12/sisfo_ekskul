@@ -14,7 +14,7 @@
                             <a class="text-light ml-2" data-toggle="modal" data-target="#tambahGuruModal">
                                 <h4><i class="fa fa-pencil"></i></h4>
                             </a>
-                            <a class="text-light ml-3" onclick="deleteGuruFromEkskul('<?= $ekskul['id_ekskul'] ?>', '<?= $ekskul['nama_ekskul'] ?>', '<?= $ekskul['guru_pembimbing']['nama_guru'] ?>')">
+                            <a class="text-light ml-3" onclick="deleteGuruFromEkskul('<?= base_url('ekskul/hapus_pembimbing/') . $ekskul['id_ekskul'] ?>', '<?= $ekskul['nama_ekskul'] ?>', '<?= $ekskul['guru_pembimbing']['nama_guru'] ?>')">
                                 <h4><i class="fa fa-trash"></i></h4>
                             </a>
                         </div>
@@ -64,7 +64,7 @@
             </div>
             <form action="<?= base_url('ekskul/tambah_pembimbing/') . $ekskul['id_ekskul'] ?>" method="post">
                 <div class="modal-body">
-                    <div class="field item form-group mt-4">
+                    <div class="field item form-group my-4">
                         <div class="col">
                             <select class="form-control has-feedback-left" name="guru" id="guru">
                                 <option value="">Pilih Guru Pembimbing</option>
@@ -77,8 +77,10 @@
                             <label class="fa fa-wheelchair-alt form-control-feedback left" for="ekskul" aria-hidden="true"></label>
                         </div>
                         <?= form_error('guru', '<div class="ml-4 font-weight-bold" style="color: #f59fa5;">', '</div>') ?>
-                        <a href="" class="mt-2"><h6>Lihat Guru Tersedia</h6></a>
                     </div>
+                    <a href="<?= base_url('guru') ?>">
+                        <h6 class="mx-3">Lihat Guru Tersedia</h6>
+                    </a>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>

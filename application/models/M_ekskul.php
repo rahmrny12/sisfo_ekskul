@@ -2,7 +2,16 @@
 
 class M_ekskul extends CI_Model {
     public function getEkskul() {
-        return $this->db->get('ekskul');
+        $this->db->from('ekskul');
+        $this->db->join('guru_pembimbing', 'guru_pembimbing.id_guru_pembimbing=ekskul.id_guru_pembimbing', 'left');
+        return $this->db->get();
+    }
+
+    public function searchEkskul($keyword) {
+        $this->db->from('ekskul');
+        $this->db->like('nama_ekskul', $keyword);
+        $this->db->join('guru_pembimbing', 'guru_pembimbing.id_guru_pembimbing=ekskul.id_guru_pembimbing', 'left');
+        return $this->db->get()->result_array();
     }
 
     public function getEkskulDetail($id_ekskul) {

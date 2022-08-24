@@ -43,3 +43,19 @@ function filterSiswa(url) {
         }
     })
 }
+
+function searchEkskul(url) {
+    var search_ekskul = document.getElementById('search_ekskul');
+    var ekskul_table = document.getElementById('ekskul_table');
+
+    $.ajax({
+        url: url,
+        method: "post",
+        data: {
+            keyword: search_ekskul.value,
+        },
+        success: function (data) {
+            ekskul_table.innerHTML = data;
+        }
+    })
+}

@@ -25,6 +25,9 @@
                 <?php else : ?>
                     <?php foreach ($ekskul as $data) : ?>
                         <div class="badge <?= ($data['dikonfirmasi']) ? 'badge-info' : 'badge-secondary' ?> d-block mb-1 pt-3 pb-2 px-4 text-light">
+                            <a onclick="removeSiswaFromEkskul('<?= base_url('ekskul/keluarkan_siswa?id_ekskul=') . $data['id_ekskul'] . '&id_siswa=' . $siswa['id_siswa'] ?>', '<?= $data['nama_ekskul'] ?>', '<?= $siswa['nama_siswa'] ?>')">
+                                <h4 class="float-right"><i class="fa fa-sign-out"></i></h4>
+                            </a>
                             <h6 class="font-weight-bold">Nama ekskul : <?= ucwords($data['nama_ekskul']) ?></h6>
                             <h6>Tanggal pendaftaran : <?= date('d-m-Y', strtotime($data['waktu_pendaftaran'])) ?></h6>
                             <h6>Waktu pendaftaran : <?= date('H:i', strtotime($data['waktu_pendaftaran'])) ?></h6>

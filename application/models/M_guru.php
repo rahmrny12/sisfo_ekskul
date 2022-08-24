@@ -4,13 +4,11 @@ class M_guru extends CI_Model
 {
     public function getGuru()
     {
-        $this->db->select('guru_pembimbing.id_guru_pembimbing, guru_pembimbing.nama_guru, guru_pembimbing.no_telp, ekskul.nama_ekskul');
+        $this->db->select('guru_pembimbing.id_guru_pembimbing, guru_pembimbing.nama_guru, guru_pembimbing.no_telp, ekskul.id_ekskul, ekskul.nama_ekskul');
         $this->db->from('guru_pembimbing');
         $this->db->join('ekskul', 'ekskul.id_guru_pembimbing=guru_pembimbing.id_guru_pembimbing', 'left');
         $this->db->group_by('guru_pembimbing.nama_guru');
-        $guru = $this->db->get();
-        
-        return $guru;
+        return $this->db->get();
     }
 
     public function login($username)

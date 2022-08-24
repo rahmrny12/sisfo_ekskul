@@ -77,6 +77,48 @@ class Ekskul extends CI_Controller
 		}
 	}
 
+	public function cari_ekskul()
+	{
+		$keyword = $this->input->post('keyword');
+		$ekskul = $this->m_ekskul->searchEkskul($keyword);
+
+		$output = "";
+		if ($ekskul != null) {
+			foreach ($ekskul as $data) {
+				$output .= '
+				<tr>
+					<td>
+						<h6>' . ucwords($data['nama_ekskul']) . '</h6>
+					</td>
+					<td>
+						<h6>' . ucfirst($data['deskripsi']) . '</h6>
+					</td>
+					<td>
+						<img class="w-50" src="' . base_url('assets/images/ekskul_images/') . $data['foto_ekskul'] . '" alt="' .  $data['foto_ekskul'] . '">
+					</td>
+					<td class="col-2">';
+
+				if ($data['nama_guru'] != null) {
+					$output .= '<h6>' . ucwords($data['nama_guru']) . '</h6>';
+				} else {
+					$output .= '<h6 class="text-secondary">Belum Ada Guru Pembimbing</h6>';
+				}
+
+				$output .= '</td><td>
+						<a class="btn btn-warning" href="' . base_url('ekskul/detail/') . $data['id_ekskul'] . '">
+							Detail
+						</a>
+					</td>
+				</tr>
+				';
+			}
+		} else {
+			$output = '<tr><td colspan="5" class="text-center pt-4"><h6>Data ekskul tidak ditemukan.</h6></td></tr>';
+		}
+
+		echo $output;
+	}
+
 	public function tambah_kegiatan()
 	{
 		$this->form_validation->set_rules('nama_ekskul', 'Nama ekskul', 'trim|required');
@@ -177,13 +219,6 @@ class Ekskul extends CI_Controller
 		}
 	}
 
-	// public function hapus($id_ekskul)
-	// {
-	// 	$this->m_ekskul->deleteEkskul($id_ekskul);
-	// 	$this->session->set_flashdata('message', '<div class="alert alert-warning font-weight-bold">Ekskul berhasil dihapus.</div>');
-	// 	redirect('ekskul');
-	// }
-
 	public function tambah_pembimbing($id_ekskul)
 	{
 		$this->form_validation->set_rules('guru', 'Guru', 'required');
@@ -258,7 +293,16 @@ class Ekskul extends CI_Controller
 	public function hapus_pembimbing($id_ekskul)
 	{
 		$this->m_guru->deleteGuruFromEkskul($id_ekskul);
+		$this->session->set_flashdata('message', '<div class="alert alert-warning font-weight-bold">Guru pembimbing berhasil dihapus dari ekskul berikut.</div>');
 		redirect('ekskul/detail/' . $id_ekskul);
+	}
+
+	public function keluarkan_siswa()
+	{
+		$id_ekskul = $this->input->get('id_ekskul');
+		$id_siswa = $this->input->get('id_siswa');
+		$this->m_siswa->removeSiswaFromEkskul($id_ekskul, $id_siswa);
+		redirect('siswa/detail/' . $id_siswa);
 	}
 
 	public function required_option($option)

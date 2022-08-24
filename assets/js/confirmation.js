@@ -1,4 +1,4 @@
-function deleteEkskulConfirm(id_ekskul) {
+function deleteEkskulConfirm(url) {
     Swal.fire({
         title: 'Yakin ingin menghapus ekskul?',
         text: "Setelah anda menghapus, maka ekskul tidak bisa dikembalikan.",
@@ -9,7 +9,7 @@ function deleteEkskulConfirm(id_ekskul) {
         confirmButtonText: 'Hapus!'
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = "<?= base_url('ekskul/hapus/') ?>" + id_ekskul;
+            window.location.href = url;
         }
     })
 }
@@ -34,7 +34,7 @@ function daftarEkskulConfirm() {
     })
 }
 
-function logoutConfirm() {
+function logoutConfirm(url) {
     Swal.fire({
         title: 'Yakin ingin keluar?',
         text: "Setelah melakukan logout, Anda harus melakukan login ulang.",
@@ -45,12 +45,12 @@ function logoutConfirm() {
         confirmButtonText: 'Logout.'
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = "<?= base_url('auth/logout') ?>";
+            window.location.href = url;
         }
     })
 }
 
-function deleteGuruFromEkskul(id_ekskul, nama_ekskul, nama_guru) {
+function deleteGuruFromEkskul(url, nama_ekskul, nama_guru) {
     Swal.fire({
         title: 'Yakin ingin mencabut ' + nama_guru + ' sebagai pembimbing ekskul ' + nama_ekskul + '?',
         text: "Anda dapat menambahkan kembali guru tersebut maupun guru lainnya.",
@@ -61,7 +61,23 @@ function deleteGuruFromEkskul(id_ekskul, nama_ekskul, nama_guru) {
         confirmButtonText: 'Hapus!'
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = "<?= base_url('ekskul/hapus_pembimbing/') ?>" + id_ekskul;
+            window.location.href = url;
+        }
+    })
+}
+
+function removeSiswaFromEkskul(url, nama_ekskul, nama_siswa) {
+    Swal.fire({
+        title: 'Yakin ingin mengeluarkan ' + nama_siswa + ' dari ekskul ' + nama_ekskul + '?',
+        text: "Siswa tersebut masih dapat mendaftar kembali.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#ff3636',
+        cancelButtonColor: '#b3b3b3',
+        confirmButtonText: 'Keluarkan.'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = url;
         }
     })
 }

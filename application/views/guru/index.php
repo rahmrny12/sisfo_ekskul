@@ -49,7 +49,9 @@
                                                 <?php if ($data['nama_ekskul'] == null) : ?>
                                                     <h6 class="text-secondary">Belum Ada Ekskul Dibimbing</h6>
                                                 <?php else : ?>
-                                                    <h6><?= $data['nama_ekskul'] ?></h6>
+                                                    <h6><?= $data['nama_ekskul'] ?> -
+                                                        <a href="<?= base_url('ekskul/hapus_pembimbing/') . $data['id_ekskul'] ?>"><small class="text-danger">Berhentikan</small></a>
+                                                    </h6>
                                                 <?php endif; ?>
                                             </td>
                                             <!-- <td>
