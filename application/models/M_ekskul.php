@@ -51,4 +51,21 @@ class M_ekskul extends CI_Model {
     public function totalKuis() {
         return $this->db->get('ekskul')->num_rows();
     }
+
+    public function getJadwal($id_ekskul) {
+        $this->db->from('jadwal');
+        $this->db->join('ekskul', 'jadwal.id_ekskul=ekskul.id_ekskul', 'left');
+        $this->db->where('jadwal.id_ekskul', $id_ekskul);
+        return $this->db->get();
+    }
+
+    public function insertJadwalToEkskul($data)
+    {
+        return $this->db->insert('jadwal', $data);
+    }
+
+    public function deleteJadwalFromEkskul($id_jadwal)
+    {
+        return $this->db->delete('jadwal', ['id_jadwal' => $id_jadwal]);
+    }
 }

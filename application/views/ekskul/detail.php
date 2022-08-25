@@ -11,17 +11,17 @@
                     <?php if ($ekskul['guru_pembimbing'] != null) : ?>
                         <div class="d-flex align-items-center">
                             <h6 class="mr-2"><?= ucwords($ekskul['guru_pembimbing']['nama_guru']) ?></h6>
-                            <a class="text-light ml-2" data-toggle="modal" data-target="#tambahGuruModal">
+                            <a class="text-light ml-2" data-toggle="modal" data-target="#tambahGuruModal" style="cursor: pointer;">
                                 <h4><i class="fa fa-pencil"></i></h4>
                             </a>
-                            <a class="text-light ml-3" onclick="deleteGuruFromEkskul('<?= base_url('ekskul/hapus_pembimbing/') . $ekskul['id_ekskul'] ?>', '<?= $ekskul['nama_ekskul'] ?>', '<?= $ekskul['guru_pembimbing']['nama_guru'] ?>')">
+                            <a class="text-light ml-3" onclick="deleteGuruFromEkskul('<?= base_url('ekskul/hapus_pembimbing/') . $ekskul['id_ekskul'] ?>', '<?= $ekskul['nama_ekskul'] ?>', '<?= $ekskul['guru_pembimbing']['nama_guru'] ?>')" style="cursor: pointer;">
                                 <h4><i class="fa fa-trash"></i></h4>
                             </a>
                         </div>
                     <?php else : ?>
                         <div class="d-flex">
                             <h6 class="mr-2">Belum Ada Guru Pembimbing</h6>
-                            <a class="text-light" data-toggle="modal" data-target="#tambahGuruModal">
+                            <a class="text-light" data-toggle="modal" data-target="#tambahGuruModal" style="cursor: pointer;">
                                 <h5><i class="fa fa-plus"></i></h5>
                             </a>
                         </div>
@@ -35,9 +35,26 @@
         <li class="list-group-item text-light text-left">
             <h6 class="text-dark"><?= ucfirst($ekskul['deskripsi']) ?></h6>
         </li>
+        <?php if ($jadwal != null) : ?>
+            <li class="list-group-item text-light text-left">
+                <h6 class="text-dark font-weight-bold">Jadwal Ekstrakurikuler</h6>
+                <?php foreach ($jadwal as $data) : ?>
+                    <div class="badge badge-info mb-1 pt-3 pb-2">
+                        <h4 class="float-right mr-2 text-light" onclick="deleteJadwalFromEkskul('<?= base_url('ekskul/hapus_jadwal?id_ekskul=') . $ekskul['id_ekskul'] . '&id_jadwal=' .  $data['id_jadwal'] ?>')" style="cursor: pointer;"><i class="fa fa-trash"></i></h4>
+                        <div class="px-4">
+                            <h6 class="text-light font-weight-bold"><?= ucfirst($data['hari']) ?></h6>
+                            <div class="col">
+                                <h6 class="text-light">Dimulai jam : <?= date('H:i', strtotime($data['jam_dimulai'])) ?></h6>
+                                <h6 class="text-light">Selesai jam : <?= date('H:i', strtotime($data['jam_selesai'])) ?></h6>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </li>
+        <?php endif; ?>
         <li class="list-group-item text-light text-left">
-            <button class="btn btn-info" data-toggle="modal" data-target="#jadwalModal">
-                Atur Jadwal
+            <button class="btn btn-info mt-2" data-toggle="modal" data-target="#jadwalModal">
+                Tambah Jadwal
             </button>
         </li>
     </ul>
@@ -70,7 +87,7 @@
                                 <option value="">Pilih Guru Pembimbing</option>
                                 <?php foreach ($guru as $data) : ?>
                                     <?php if ($data['nama_ekskul'] == null) : ?>
-                                        <option value="<?= $data['id_guru_pembimbing'] ?>"><?= $data['nama_guru'] ?></option>
+                                        <li><?= $data['hari'] ?></li>
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             </select>
@@ -102,18 +119,38 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <div class="input-group date" id="myDatepicker3">
-                        <input type="text" class="form-control">
-                        <span class="input-group-addon">
-                            <span class="fa fa-wheelchair-alt"></span>
-                        </span>
+                <form action="<?= base_url('ekskul/tambah_jadwal/') . $ekskul['id_ekskul'] ?>" method="post">
+                    <div class="field item form-group mt-4">
+                        <div class="col">
+                            <select class="form-control has-feedback-left" name="hari" id="hari">
+                                <option value="">Pilih Hari</option>
+                                <option value="senin">Senin</option>
+                                <option value="selasa">Selasa</option>
+                                <option value="rabu">Rabu</option>
+                                <option value="kamis">Kamis</option>
+                                <option value="jumat">Jumat</option>
+                                <option value="sabtu">Sabtu</option>
+                            </select>
+                            <label class="fa fa-calendar form-control-feedback left" for="hari" aria-hidden="true"></label>
+                        </div>
                     </div>
-                </div>
+                    <div class="field item form-group mt-4">
+                        <div class="col">
+                            <input type="time" class="form-control has-feedback-left" name="jam_dimulai" id="jam_dimulai" value="07:00" placeholder="Masukkan Jam Dimulai">
+                            <label class="fa fa-calendar form-control-feedback left" for="jam_dimulai" aria-hidden="true"></label>
+                        </div>
+                    </div>
+                    <div class="field item form-group mt-4">
+                        <div class="col">
+                            <input type="time" class="form-control has-feedback-left" name="jam_selesai" id="jam_selesai" value="17:00" placeholder="Masukkan Jam Selesai">
+                            <label class="fa fa-calendar form-control-feedback left" for="jam_selesai" aria-hidden="true"></label>
+                        </div>
+                    </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary">Atur Jadwal</button>
+                <button type="submit" class="btn btn-primary">Atur Jadwal</button>
+                </form>
             </div>
         </div>
     </div>

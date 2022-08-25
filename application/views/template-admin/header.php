@@ -13,11 +13,6 @@
     <!-- Bootstrap -->
     <link href="<?= base_url('vendor/gentelella/') ?>vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <!-- aku nyoba upgrade font awesome dadi versi 5 rakenek -->
-    <!-- <link href="<?= base_url('assets/') ?>font-awesome/css/fontawesome.min.css" rel="stylesheet"> -->
-    <!-- aku nyobak lewat link yo gak kenek coy -->
-    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> -->
-    <!-- iki sing versi 4, icon e terbatas -->
     <link href="<?= base_url('vendor/gentelella/') ?>vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
     <link href="<?= base_url('vendor/gentelella/') ?>vendors/nprogress/nprogress.css" rel="stylesheet">

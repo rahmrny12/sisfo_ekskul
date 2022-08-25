@@ -57,7 +57,7 @@
                                             <td>
                                                 <h6><?= $data['nisn'] ?></h6>
                                             </td>
-                                            <td>
+                                            <td class="col-2">
                                                 <h6><?= strtoupper($data['kelas']) ?></h6>
                                             </td>
                                             <td>

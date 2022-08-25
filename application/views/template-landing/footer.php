@@ -62,10 +62,10 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-    function logoutConfirm() {
+    function siswaLogoutConfirm() {
         Swal.fire({
             title: 'Yakin ingin keluar?',
-            text: "Setelah melakukan logout, Anda harus melakukan login ulang.",
+            text: "Setelah melakukan logout, Kamu harus melakukan login ulang.",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#ff3636',

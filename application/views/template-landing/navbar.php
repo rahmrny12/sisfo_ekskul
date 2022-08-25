@@ -28,7 +28,7 @@
                                              <h6>Halo, <br><strong>' . $this->session->userdata('nama_siswa') . '</strong></h6>
                                         </span>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                             <button type="button" class="dropdown-item" onclick="logoutConfirm(' . base_url('auth/logout') . ')">Keluar</button>
+                                             <button type="button" class="dropdown-item" onclick="siswaLogoutConfirm()">Keluar</button>
                                         </div>
                                    </div>' ?>
                          </li>

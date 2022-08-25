@@ -34,7 +34,7 @@ function daftarEkskulConfirm() {
     })
 }
 
-function logoutConfirm(url) {
+function adminLogoutConfirm(url) {
     Swal.fire({
         title: 'Yakin ingin keluar?',
         text: "Setelah melakukan logout, Anda harus melakukan login ulang.",
@@ -54,6 +54,22 @@ function deleteGuruFromEkskul(url, nama_ekskul, nama_guru) {
     Swal.fire({
         title: 'Yakin ingin mencabut ' + nama_guru + ' sebagai pembimbing ekskul ' + nama_ekskul + '?',
         text: "Anda dapat menambahkan kembali guru tersebut maupun guru lainnya.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#ff3636',
+        cancelButtonColor: '#b3b3b3',
+        confirmButtonText: 'Hapus!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = url;
+        }
+    })
+}
+
+function deleteJadwalFromEkskul(url) {
+    Swal.fire({
+        title: 'Yakin ingin menghapus jadwal dari ekskul?',
+        text: "Anda dapat menambahkan jadwal kembali nanti.",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#ff3636',

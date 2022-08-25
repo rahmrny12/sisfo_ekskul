@@ -32,7 +32,7 @@
                 <?php endif; ?>
                 <p class="mt-3 mb-4"><?= $ekskul['deskripsi'] ?></p>
                 <button class="btn btn-info p-3" data-toggle="modal" data-target="#anggotaModal">
-                    <span class="font-weight-bold">Jumlah Anggota : <?= count($anggota) ?></span>
+                    <span>Jumlah Anggota : <?= count($anggota) ?></span>
                 </button>
             </div>
         </div>
@@ -46,6 +46,9 @@
                 <?php else : ?>
                     <h3>Anda sudah mendaftar <strong><?= $ekskul['nama_ekskul'] ?></strong> dan menunggu konfirmasi dari gurumu.</h3>
                 <?php endif; ?>
+                <a class="btn mt-5 text-center pt-3 px-4" style="background-color: var(--secondary-color);" href="<?= base_url('landing#ekskul') ?>">
+                    <h6 class="font-weight-bold">Lihat Ekskul Lainnya</h6>
+                </a>
             </div>
         <?php else : ?>
             <div class="container text-center">

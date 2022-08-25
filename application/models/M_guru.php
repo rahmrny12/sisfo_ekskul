@@ -24,7 +24,7 @@ class M_guru extends CI_Model
     public function getGuruFromEkskul($id_ekskul)
     {
         $guru = $this->db->get('guru_pembimbing')->result_array();
-        
+
         $index = 0;
         foreach ($guru as $data) {
             $guru[$index]['ekskul'] = $this->db->get_where('ekskul', ['id_guru_pembimbing', $data['id_guru_pembimbing']])->row_array();
@@ -34,11 +34,13 @@ class M_guru extends CI_Model
         return $guru;
     }
 
-    public function deleteGuruFromEkskul($id_ekskul) {
-        return $this->db->update('ekskul', ['id_guru_pembimbing' => null], ['id_ekskul' => $id_ekskul]);
+    public function insertGuruToEkskul($id_ekskul, $id_guru)
+    {
+        return $this->db->update('ekskul', ['id_guru_pembimbing' => $id_guru], ['id_ekskul' => $id_ekskul]);
     }
 
-    public function insertGuruToEkskul($id_ekskul, $id_guru) {
-        return $this->db->update('ekskul', ['id_guru_pembimbing' => $id_guru], ['id_ekskul' => $id_ekskul]);
+    public function deleteGuruFromEkskul($id_ekskul)
+    {
+        return $this->db->update('ekskul', ['id_guru_pembimbing' => null], ['id_ekskul' => $id_ekskul]);
     }
 }

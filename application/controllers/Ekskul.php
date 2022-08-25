@@ -27,6 +27,7 @@ class Ekskul extends CI_Controller
 	{
 		$data['ekskul'] = $this->m_ekskul->getEkskulDetail($id_ekskul);
 		$data['guru'] = $this->m_guru->getGuru()->result_array();
+		$data['jadwal'] = $this->m_ekskul->getJadwal($id_ekskul)->result_array();
 
 		$data['title'] = 'Detail Ekskul';
 		$this->load->view('template-admin/header', $data);
@@ -233,63 +234,6 @@ class Ekskul extends CI_Controller
 		}
 	}
 
-	public function edit_pembimbing($id_ekskul)
-	{
-		$data['ekskul'] = $this->m_ekskul->getEkskulDetail($id_ekskul);
-
-		$this->form_validation->set_rules('nama_ekskul', 'Nama ekskul', 'trim|required');
-		$this->form_validation->set_rules('deskripsi', 'Deskripsi', 'trim|required');
-
-		if ($this->form_validation->run() == false) {
-			$data['title'] = 'Edit Ekstrakurikuler';
-			$this->load->view('template-admin/header', $data);
-			$this->load->view('ekskul/edit', $data);
-			$this->load->view('template-admin/footer');
-		} else {
-			if (!empty($_FILES['foto_ekskul']['name'])) {
-				$config['upload_path'] = './assets/images/ekskul_images/';
-				$config['allowed_types'] = 'jpg|jpeg|png';
-				$config['encrypt_name'] = true;
-				$config['max_size'] = '2048';
-				$config['max_width'] = '1024';
-				$config['max_height'] = '1024';
-
-				$this->load->library('upload', $config);
-
-				if ($this->upload->do_upload('foto_ekskul')) {
-					$foto_lama = './assets/images/ekskul_images/' . $data['ekskul']['foto_ekskul'];
-					if (file_exists($foto_lama)) {
-						unlink($foto_lama);
-					}
-
-					$foto_ekskul = $this->upload->data();
-					$ekskul_baru = [
-						'nama_ekskul' => $this->input->post('nama_ekskul'),
-						'deskripsi' => $this->input->post('deskripsi'),
-						'foto_ekskul' => $foto_ekskul['file_name'],
-					];
-
-					$this->m_ekskul->updateEkskul($id_ekskul, $ekskul_baru);
-					$this->session->set_flashdata('message', '<div class="alert alert-success font-weight-bold">Ekskul baru diedit.</div>');
-					redirect('ekskul/detail/' . $id_ekskul);
-				} else {
-					$upload_error = $this->upload->display_errors();
-					$this->session->set_flashdata('upload_error', '<div class="alert alert-warning font-weight-bold">' . $upload_error .  '</div>');
-					redirect('ekskul/edit/' . $id_ekskul);
-				}
-			} else {
-				$ekskul_baru = [
-					'nama_ekskul' => $this->input->post('nama_ekskul'),
-					'deskripsi' => $this->input->post('deskripsi'),
-				];
-
-				$this->m_ekskul->updateEkskul($id_ekskul, $ekskul_baru);
-				$this->session->set_flashdata('message', '<div class="alert alert-success font-weight-bold">Ekskul berhasil diedit.</div>');
-				redirect('ekskul/detail/' . $id_ekskul);
-			}
-		}
-	}
-
 	public function hapus_pembimbing($id_ekskul)
 	{
 		$this->m_guru->deleteGuruFromEkskul($id_ekskul);
@@ -297,11 +241,42 @@ class Ekskul extends CI_Controller
 		redirect('ekskul/detail/' . $id_ekskul);
 	}
 
+	public function tambah_jadwal($id_ekskul)
+	{
+		$this->form_validation->set_rules('hari', 'Hari', 'required');
+		$this->form_validation->set_rules('jam_dimulai', 'Jam Dimulai', 'required');
+		$this->form_validation->set_rules('jam_selesai', 'Jam Selesai', 'required');
+
+		if ($this->form_validation->run() == false) {
+			redirect('ekskul/detail/' . $id_ekskul);
+		} else {
+			$jadwal = [
+				'hari' => $this->input->post('hari'),
+				'jam_dimulai' => $this->input->post('jam_dimulai'),
+				'jam_selesai' => $this->input->post('jam_selesai'),
+				'id_ekskul' => $id_ekskul,
+			];
+			$this->m_ekskul->insertJadwalToEkskul($jadwal);
+			$this->session->set_flashdata('message', '<div class="alert alert-success font-weight-bold">Jadwal berhasil ditambahkan.</div>');
+			redirect('ekskul/detail/' . $id_ekskul);
+		}
+	}
+
+	public function hapus_jadwal()
+	{
+		$id_ekskul = $this->input->get('id_ekskul');
+		$id_jadwal = $this->input->get('id_jadwal');
+		
+		$this->m_ekskul->deleteJadwalFromEkskul($id_jadwal);
+		$this->session->set_flashdata('message', '<div class="alert alert-warning font-weight-bold">Jadwal berhasil dihapus.</div>');
+		redirect('ekskul/detail/' . $id_ekskul);
+	}
+
 	public function keluarkan_siswa()
 	{
 		$id_ekskul = $this->input->get('id_ekskul');
 		$id_siswa = $this->input->get('id_siswa');
-		$this->m_siswa->removeSiswaFromEkskul($id_ekskul, $id_siswa);
+		$result = $this->m_siswa->removeSiswaFromEkskul($id_ekskul, $id_siswa);
 		redirect('siswa/detail/' . $id_siswa);
 	}
 

@@ -64,7 +64,7 @@ class M_siswa extends CI_Model
 
     public function getDetailSiswa($id_siswa)
     {
-        return $this->db->get('siswa');
+        return $this->db->get_where('siswa', ['id_siswa' => $id_siswa]);
     }
 
     public function getEkskulSiswa($id_siswa)
