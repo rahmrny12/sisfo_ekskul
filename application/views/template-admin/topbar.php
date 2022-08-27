@@ -1,7 +1,7 @@
 <!-- top navigation -->
 <div class="top_nav">
     <div class="nav_menu">
-        <div class="nav toggle">
+        <div class="nav toggle mb-3">
             <a id="menu_toggle"><i class="fa fa-bars"></i></a>
         </div>
         <nav class="nav navbar-nav">
@@ -14,27 +14,6 @@
                         <button type="button" class="dropdown-item" onclick="adminLogoutConfirm('<?= base_url('auth/logout') ?>')"><i class="fa fa-sign-out pull-right"></i> Log Out</button>
                     </div>
                 </li>
-
-                <!-- <li role="presentation" class="nav-item dropdown open">
-                    <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-envelope-o"></i>
-                        <span class="badge bg-green">6</span>
-                    </a>
-                    <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                        <li class="nav-item">
-                            <a class="dropdown-item">
-                                <span class="image"><img src="<?= base_url('vendor/gentelella/production/') ?>images/img.jpg" alt="Profile Image" /></span>
-                                <span>
-                                    <span>John Smith</span>
-                                    <span class="time">3 mins ago</span>
-                                </span>
-                                <span class="message">
-                                    Film festivals used to be do-or-die moments for movie makers. They were where...
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </li> -->
             </ul>
         </nav>
     </div>

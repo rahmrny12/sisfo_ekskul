@@ -20,7 +20,7 @@
                         <label class="col-form-label col-md-3 col-sm-3  label-align" for="nama_ekskul">Nama Ekstrakurikuler<span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6">
                             <input type="text" class="form-control has-feedback-left" id="nama_ekskul" value="<?= set_value('nama_ekskul') ?>" name="nama_ekskul" placeholder="Masukkan nama ekskul">
-                            <label class="fa fa-wheelchair-alt form-control-feedback left" for="nama_ekskul" aria-hidden="true"></label>
+                            <label class="fa fa-futbol-o form-control-feedback left" for="nama_ekskul" aria-hidden="true"></label>
                         </div>
                         <?= form_error('nama_ekskul', '<div class="font-weight-bold text-danger">', '</div>') ?>
                     </div>

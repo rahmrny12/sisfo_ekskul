@@ -20,7 +20,7 @@
                         <label class="col-form-label col-md-3 col-sm-3  label-align" for="nama_guru">Nama Guru<span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6">
                             <input type="text" class="form-control has-feedback-left" id="nama_guru" value="<?= set_value('nama_guru') ?>" name="nama_guru" placeholder="Masukkan nama guru">
-                            <label class="fa fa-wheelchair-alt form-control-feedback left" for="nama_guru" aria-hidden="true"></label>
+                            <label class="fa fa-users form-control-feedback left" for="nama_guru" aria-hidden="true"></label>
                         </div>
                         <?= form_error('nama_guru', '<div class="font-weight-bold text-danger">', '</div>') ?>
                     </div>
@@ -28,7 +28,7 @@
                         <label class="col-form-label col-md-3 col-sm-3  label-align" for="no_telp">No Telepon<span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6">
                             <input type="text" class="form-control has-feedback-left" id="no_telp" value="<?= set_value('no_telp') ?>" name="no_telp" placeholder="Masukkan nomor telepon">
-                            <label class="fa fa-wheelchair-alt form-control-feedback left" for="no_telp" aria-hidden="true"></label>
+                            <label class="fa fa-users form-control-feedback left" for="no_telp" aria-hidden="true"></label>
                         </div>
                         <?= form_error('no_telp', '<div class="font-weight-bold text-danger">', '</div>') ?>
                     </div>

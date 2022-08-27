@@ -21,6 +21,7 @@ class Auth extends CI_Controller
 		if ($this->form_validation->run() == false) {
 			$data['title'] = 'Login Ekskul';
 			$this->load->view('template-landing/header', $data);
+			$this->load->view('template-landing/navbar', $data);
 			$this->load->view('landing/login', $data);
 			$this->load->view('template-landing/footer', $data);
 		} else {
@@ -74,6 +75,7 @@ class Auth extends CI_Controller
 		if ($this->form_validation->run() == false) {
 			$data['title'] = 'Registrasi Siswa';
 			$this->load->view('template-landing/header', $data);
+			$this->load->view('template-landing/navbar', $data);
 			$this->load->view('landing/registration', $data);
 			$this->load->view('template-landing/footer', $data);
 		} else {
@@ -101,6 +103,7 @@ class Auth extends CI_Controller
 		if ($this->form_validation->run() == false) {
 			$data['title'] = 'Login Ekskul';
 			$this->load->view('template-landing/header', $data);
+			$this->load->view('template-landing/navbar', $data);
 			$this->load->view('landing/login_guru', $data);
 			$this->load->view('template-landing/footer', $data);
 		} else {
@@ -126,38 +129,6 @@ class Auth extends CI_Controller
 				$this->session->set_flashdata('message', '<div class="alert alert-warning font-weight-bold mb-0">Guru tidak ditemukan.</div>');
 				redirect('auth/login_guru');
 			}
-		}
-	}
-
-	public function registration_guru()
-	{
-		$this->form_validation->set_rules('nama_siswa', 'Nama Siswa', 'trim|required');
-		$this->form_validation->set_rules('nisn', 'NISN', 'trim|required');
-		$this->form_validation->set_rules('kelas', 'Kelas', 'trim|required');
-		$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');
-		$this->form_validation->set_rules('no_telp', 'No Telepon', 'trim|required');
-		$this->form_validation->set_rules('username', 'Username', 'trim|required');
-		$this->form_validation->set_rules('password', 'Password', 'trim|required');
-
-		if ($this->form_validation->run() == false) {
-			$data['title'] = 'Registrasi Siswa';
-			$this->load->view('template-landing/header', $data);
-			$this->load->view('landing/registration_guru', $data);
-			$this->load->view('template-landing/footer', $data);
-		} else {
-			$siswa = [
-				'nama_siswa' => $this->input->post('nama_siswa'),
-				'nisn' => $this->input->post('nisn'),
-				'kelas' => $this->input->post('kelas'),
-				'alamat' => $this->input->post('alamat'),
-				'no_telp' => $this->input->post('no_telp'),
-				'username' => $this->input->post('username'),
-				'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-			];
-
-			$this->m_siswa->insertSiswa($siswa);
-			$this->session->set_flashdata('message', '<div class="alert alert-success font-weight-bold">Selamat, Anda berhasil registrasi. Silahkan login untuk melanjutkan.</div>');
-			redirect('auth');
 		}
 	}
 }

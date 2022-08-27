@@ -48,8 +48,17 @@ class M_ekskul extends CI_Model {
         return $this->db->update('pendaftaran', ['dikonfirmasi' => 1], ['id_ekskul' => $id_ekskul, 'id_siswa' => $id_siswa]);
     }
     
-    public function totalKuis() {
+    public function totalEkskul() {
         return $this->db->get('ekskul')->num_rows();
+    }
+
+    public function ekskulFavorit() {
+        $this->db->select('ekskul.nama_ekskul, COUNT(ekskul.id_ekskul) as total_anggota');
+        $this->db->from('pendaftaran');
+        $this->db->join('ekskul', 'pendaftaran.id_ekskul=ekskul.id_ekskul', 'left');
+        $this->db->group_by('ekskul.nama_ekskul');
+        $this->db->order_by('total_anggota', 'DESC');
+        return $this->db->get();
     }
 
     public function getJadwal($id_ekskul) {

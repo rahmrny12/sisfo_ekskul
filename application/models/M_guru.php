@@ -43,4 +43,8 @@ class M_guru extends CI_Model
     {
         return $this->db->update('ekskul', ['id_guru_pembimbing' => null], ['id_ekskul' => $id_ekskul]);
     }
+
+    public function totalGuru() {
+        return $this->db->get('guru_pembimbing')->num_rows();
+    }
 }

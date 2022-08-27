@@ -8,6 +8,7 @@ class Siswa extends CI_Controller
 		parent::__construct();
 		check_admin_login();
 		$this->load->model('m_siswa');
+		$this->load->model('m_guru');
 		$this->load->model('m_ekskul');
 	}
 
@@ -24,7 +25,10 @@ class Siswa extends CI_Controller
 
 	public function dashboard()
 	{
-		$data['total_kuis'] = $this->m_ekskul->totalKuis();
+		$data['total_ekskul'] = $this->m_ekskul->totalEkskul();
+		$data['total_siswa'] = $this->m_siswa->totalSiswa();
+		$data['total_guru'] = $this->m_guru->totalGuru();
+		$data['ekskul_favorit'] = $this->m_ekskul->ekskulFavorit()->result_array();
 
 		$data['title'] = 'Dashboard';
 		$this->load->view('template-admin/header', $data);
@@ -42,7 +46,7 @@ class Siswa extends CI_Controller
 		$this->load->view('siswa/detail', $data);
 		$this->load->view('template-admin/footer');
 	}
-
+	
 	public function filter_siswa()
 	{
 		$keyword = $this->input->post('keyword');

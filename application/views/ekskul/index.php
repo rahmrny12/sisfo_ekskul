@@ -1,6 +1,6 @@
 <div class="page-title">
     <div class="title_left">
-        <h3>Ekstrakurikuler</h3>
+        <h3>Daftar Ekstrakurikuler</h3>
     </div>
 </div>
 
@@ -10,7 +10,6 @@
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Daftar Ekstrakurikuler</h2>
                 <div class="col-md-4 col-sm-4 col-xs-10 float-right form-group pull-right top_search">
                     <div class="input-group">
                         <input onkeyup="searchEkskul('<?= base_url('ekskul/cari_ekskul') ?>')" type="text" id="search_ekskul" class="form-control" placeholder="Cari ekstrakurikuler...">

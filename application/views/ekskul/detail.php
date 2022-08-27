@@ -87,7 +87,7 @@
                                 <option value="">Pilih Guru Pembimbing</option>
                                 <?php foreach ($guru as $data) : ?>
                                     <?php if ($data['nama_ekskul'] == null) : ?>
-                                        <li><?= $data['hari'] ?></li>
+                                        <option value="<?= $data['id_guru_pembimbing'] ?>"><?= $data['nama_guru'] ?></option>
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             </select>
@@ -113,7 +113,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="tambahGuruModalLabel">Jadwal Produktif Ekskul</h5>
+                <h5 class="modal-title" id="tambahGuruModalLabel">Jadwal Pelaksanaan Ekskul</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

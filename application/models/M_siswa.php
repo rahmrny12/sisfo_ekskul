@@ -28,7 +28,9 @@ class M_siswa extends CI_Model
     public function filterSiswa($keyword, $filter_siswa, $filter_ekskul)
     {
         $this->db->from('siswa');
+        $this->db->join('pendaftaran', 'pendaftaran.id_siswa=siswa.id_siswa');
         $this->db->like('nama_siswa', $keyword);
+        $this->db->where('id_ekskul', $filter_ekskul);
 
         if ($filter_siswa == 'baru_daftar') {
             $this->db->order_by('id_siswa', 'DESC');
@@ -48,12 +50,6 @@ class M_siswa extends CI_Model
             });
         }
 
-        if ($filter_ekskul != null) {
-            $siswa = array_filter($siswa, static function ($data) use ($filter_ekskul) {
-                return array_search($filter_ekskul, array_column($data['ekskul'], 'id_ekskul'));
-            });
-        }
-        
         return $siswa;
     }
 
@@ -89,5 +85,10 @@ class M_siswa extends CI_Model
     public function removeSiswaFromEkskul($id_ekskul, $id_siswa)
     {
         return $this->db->delete('pendaftaran', ['id_ekskul' => $id_ekskul, 'id_siswa' => $id_siswa]);
+    }
+
+    public function totalSiswa()
+    {
+        return $this->db->get('siswa')->num_rows();
     }
 }

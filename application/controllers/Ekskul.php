@@ -279,14 +279,4 @@ class Ekskul extends CI_Controller
 		$result = $this->m_siswa->removeSiswaFromEkskul($id_ekskul, $id_siswa);
 		redirect('siswa/detail/' . $id_siswa);
 	}
-
-	public function required_option($option)
-	{
-		if ($option == '') {
-			$this->form_validation->set_message('required_option', 'Pilih guru pembimbing terlebih dahulu');
-			return false;
-		} else {
-			return true;
-		}
-	}
 }

@@ -49,6 +49,7 @@ class Landing extends CI_Controller
 			$this->load->view('landing/daftar-ekskul', $data);
 			$this->load->view('template-landing/footer');
 		} else {
+			date_default_timezone_set('Asia/Jakarta');
 			$daftar = [
 				'id_siswa' => $this->session->userdata('id_siswa'),
 				'id_ekskul' => $this->input->post('ekskul'),
@@ -66,5 +67,16 @@ class Landing extends CI_Controller
 			$this->session->set_flashdata('message', '<div class="alert alert-success font-weight-bold">Pendaftaran berhasil.</div>');
 			redirect('landing/detail_ekskul/' . $id_ekskul);
 		}
+	}
+
+	public function profil($id_siswa)
+	{
+		$data['title'] = 'Profil Siswa';
+		$data['siswa'] = $this->m_siswa->getDetailSiswa($id_siswa);
+		
+		$this->load->view('template-landing/header', $data);
+		$this->load->view('template-landing/navbar', $data);
+		$this->load->view('landing/profil');
+		$this->load->view('template-landing/footer');
 	}
 }

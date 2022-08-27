@@ -10,13 +10,6 @@
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
             <div class="flex">
-                <ul class="nav navbar-right panel_toolbox">
-                    <div class="top_search">
-                        <div class="input-group">
-                            <input onkeyup="filterSiswa()" id="search_siswa" type="text" class="form-control" placeholder="Cari Siswa...">
-                        </div>
-                    </div>
-                </ul>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
