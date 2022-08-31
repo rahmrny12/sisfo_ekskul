@@ -10,11 +10,6 @@
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
             <div class="flex">
-                <select onchange="filterSiswa('<?= base_url('siswa/filter_siswa') ?>')" class="form-control col-md-3 mr-2" name="filter_siswa" id="filter_siswa">
-                    <option value="">Filter Siswa</option>
-                    <option value="baru_daftar">Baru Saja Daftar</option>
-                    <option value="belum_mengikuti">Belum Mengikuti Ekskul</option>
-                </select>
                 <select onchange="filterSiswa('<?= base_url('siswa/filter_siswa') ?>')" class="form-control col-md-3" name="filter_ekskul" id="filter_ekskul">
                     <option value="">Filter Ekstrakurikuler</option>
                     <?php foreach ($ekskul as $data) : ?>

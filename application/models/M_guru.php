@@ -21,17 +21,13 @@ class M_guru extends CI_Model
         return $this->db->insert('guru_pembimbing', $data);
     }
 
-    public function getGuruFromEkskul($id_ekskul)
+    public function getDetailGuru($id_guru)
     {
-        $guru = $this->db->get('guru_pembimbing')->result_array();
-
-        $index = 0;
-        foreach ($guru as $data) {
-            $guru[$index]['ekskul'] = $this->db->get_where('ekskul', ['id_guru_pembimbing', $data['id_guru_pembimbing']])->row_array();
-            $index++;
-        }
-
-        return $guru;
+        return $this->db->get_where('guru_pembimbing', ['id_guru_pembimbing' => $id_guru]);
+    }
+    public function updateGuru($id_guru, $data)
+    {
+        return $this->db->update('guru_pembimbing', $data, ['id_guru_pembimbing' => $id_guru]);
     }
 
     public function insertGuruToEkskul($id_ekskul, $id_guru)

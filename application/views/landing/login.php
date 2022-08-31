@@ -1,7 +1,7 @@
 <section style="background-color: var(--primary-color);">
     <div class="container mb-5">
+        <h6 class="pt-3 text"><a href="<?= base_url('auth/login_guru') ?>" class="font-weight-bold pl-3 text-light"><u>Login Sebagai Guru</u></a></h6>
         <div class="row">
-
             <div class="col-lg-8 mx-auto col-md-7 col-12 pt-5 text-center" data-aos="fade-up">
 
                 <h1 class="mb-4 text-light">Halaman Login <strong>Sisfo Ekskul</strong></h1>
@@ -38,5 +38,4 @@
         </div>
     </div>
 
-    <h6><a href="<?= base_url('auth/login_guru') ?>" class="font-weight-bold p-3 position-fixed ml-2 text-light" style="top: 5px;left: 0;">Login Sebagai Guru</a></h6>
     <h5><a href="<?= base_url('landing') ?>" class="badge badge-warning badge-pill font-weight-bold p-3 position-fixed m-3" style="bottom: 5px;right: 0;">Kembali ke Home</a></h5>

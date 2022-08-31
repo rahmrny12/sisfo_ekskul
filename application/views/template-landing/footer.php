@@ -46,6 +46,11 @@
                 </div>
             </div>
 
+
+        </div>
+        <div class="pb-0">
+            <small class="text-light d-block">Image Soccer : <a href="https://www.freepik.com/free-vector/football-players-collection_15274859.htm#query=flat%20soccer&position=21&from_view=search">Freepik</a></small>
+            <small class="text-light">Image Scout : <a href="https://www.freepik.com/free-vector/pramuka-day-illustration_15592923.htm#query=flat%20pramuka&position=12&from_view=search">Freepik</a></small>
         </div>
     </div>
 </footer>

@@ -15,9 +15,15 @@
                <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto flex align-items-center">
                          <li class="nav-item">
-                              <a href="<?= ($this->uri->segment(1) != 'landing') ? 'landing#ekskul' : '#ekskul' ?>" class="nav-link smoothScroll">
-                                   <h6>Ekstrakurikuler</h6>
-                              </a>
+                              <?php if ($this->uri->uri_string() != 'landing/index' && $this->uri->uri_string() != 'landing') : ?>
+                                   <a href="<?= base_url('landing#ekskul') ?>" class="nav-link smoothScroll">
+                                        <h6>Ekstrakurikuler</h6>
+                                   </a>
+                              <?php else : ?>
+                                   <a href="#ekskul" class="nav-link smoothScroll">
+                                        <h6>Ekstrakurikuler</h6>
+                                   </a>
+                              <?php endif; ?>
                          </li>
                          <li class="nav-item text-center data-toggle=" dropdown" aria-haspopup="true" aria-expanded="false"">
                               <?php if (!$this->session->has_userdata('nama_siswa')) : ?>
@@ -28,7 +34,7 @@
                                         <h6>Halo, <br><strong><?= $this->session->userdata('nama_siswa') ?></strong></h6>
                                    </span>
                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a href="<?= base_url('landing/profil/') . $this->session->userdata('id_siswa') ?>" class="dropdown-item">Profil Siswa</a>
+                                        <a href="<?= base_url('landing/edit_profil/') . $this->session->userdata('id_siswa') ?>" class="dropdown-item">Profil Siswa</a>
                                         <button type="button" class="dropdown-item" onclick="siswaLogoutConfirm()">Keluar</button>
                                    </div>
                               </div>

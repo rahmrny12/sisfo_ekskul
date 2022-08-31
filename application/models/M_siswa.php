@@ -4,6 +4,7 @@ class M_siswa extends CI_Model
 {
     public function getSiswa()
     {
+        $this->db->order_by('id_siswa', 'DESC');
         $siswa = $this->db->get('siswa')->result_array();
 
         $index = 0;
@@ -17,23 +18,23 @@ class M_siswa extends CI_Model
 
     public function login($username)
     {
-        $siswa = $this->db->get_where('siswa', ['username' => $username]);
+        $siswa = $this->db->get_where('siswa', ['username' => $username])->row_array();
         if ($siswa != null) {
             return $siswa;
         } else {
-            return $this->db->get_where('siswa', ['nisn' => $username]);
+            return $this->db->get_where('siswa', ['nisn' => $username])->row_array();
         }
     }
 
-    public function filterSiswa($keyword, $filter_siswa, $filter_ekskul)
+    public function filterSiswa($keyword, $filter_ekskul)
     {
         $this->db->from('siswa');
-        $this->db->join('pendaftaran', 'pendaftaran.id_siswa=siswa.id_siswa');
+        $this->db->join('pendaftaran', 'pendaftaran.id_siswa=siswa.id_siswa', 'left');
         $this->db->like('nama_siswa', $keyword);
-        $this->db->where('id_ekskul', $filter_ekskul);
+        $this->db->group_by('siswa.id_siswa');
 
-        if ($filter_siswa == 'baru_daftar') {
-            $this->db->order_by('id_siswa', 'DESC');
+        if ($filter_ekskul != "") {
+            $this->db->where('id_ekskul', $filter_ekskul);
         }
 
         $siswa = $this->db->get()->result_array();
@@ -44,18 +45,7 @@ class M_siswa extends CI_Model
             $index++;
         }
 
-        if ($filter_siswa == 'belum_mengikuti') {
-            $siswa = array_filter($siswa, static function ($data) use ($filter_ekskul) {
-                return $data['ekskul'] == null;
-            });
-        }
-
         return $siswa;
-    }
-
-    public function getSiswaByNISN($nisn)
-    {
-        return $this->db->get_where('siswa', ['nisn' => $nisn]);
     }
 
     public function getDetailSiswa($id_siswa)
@@ -90,5 +80,10 @@ class M_siswa extends CI_Model
     public function totalSiswa()
     {
         return $this->db->get('siswa')->num_rows();
+    }
+
+    public function editProfil($id_siswa, $data)
+    {
+        return $this->db->update('siswa', $data, ['id_siswa' => $id_siswa]);
     }
 }

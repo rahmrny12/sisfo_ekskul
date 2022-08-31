@@ -26,7 +26,7 @@
                                         <th>Nama Guru</th>
                                         <th>No Telepon</th>
                                         <th>Ekskul Dibimbing</th>
-                                        <!-- <th>Aksi</th> -->
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody id="siswa_table">
@@ -47,11 +47,11 @@
                                                     </h6>
                                                 <?php endif; ?>
                                             </td>
-                                            <!-- <td>
-                                                <a class="btn btn-secondary" href="<?= base_url('guru/detail/') . $data['id_guru_pembimbing'] ?>">
-                                                    Detail Guru
+                                            <td>
+                                                <a class="btn btn-secondary" href="<?= base_url('guru/edit/') . $data['id_guru_pembimbing'] ?>">
+                                                    Edit
                                                 </a>
-                                            </td> -->
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>

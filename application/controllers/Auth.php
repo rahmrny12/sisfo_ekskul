@@ -23,12 +23,12 @@ class Auth extends CI_Controller
 			$this->load->view('template-landing/header', $data);
 			$this->load->view('template-landing/navbar', $data);
 			$this->load->view('landing/login', $data);
-			$this->load->view('template-landing/footer', $data);
+			$this->load->view('template-landing/footer');
 		} else {
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
 
-			$siswa = $this->m_siswa->login($username)->row_array();
+			$siswa = $this->m_siswa->login($username);
 			if ($siswa != null) {
 				if (password_verify($password, $siswa['password'])) {
 					$siswa = [
@@ -77,7 +77,7 @@ class Auth extends CI_Controller
 			$this->load->view('template-landing/header', $data);
 			$this->load->view('template-landing/navbar', $data);
 			$this->load->view('landing/registration', $data);
-			$this->load->view('template-landing/footer', $data);
+			$this->load->view('template-landing/footer');
 		} else {
 			$siswa = [
 				'nama_siswa' => $this->input->post('nama_siswa'),
@@ -104,8 +104,8 @@ class Auth extends CI_Controller
 			$data['title'] = 'Login Ekskul';
 			$this->load->view('template-landing/header', $data);
 			$this->load->view('template-landing/navbar', $data);
-			$this->load->view('landing/login_guru', $data);
-			$this->load->view('template-landing/footer', $data);
+			$this->load->view('landing/login-guru', $data);
+			$this->load->view('template-landing/footer');
 		} else {
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');

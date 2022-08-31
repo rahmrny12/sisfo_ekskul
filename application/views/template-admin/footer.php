@@ -64,29 +64,6 @@
 <script src="<?= base_url('assets/js/search_filter.js') ?>"></script>
 <script src="<?= base_url('assets/js/confirmation.js') ?>"></script>
 
-<script>
-  new Morris.Bar({
-    // ID of the element in which to draw the chart.
-    element: 'grafikEkskul',
-    // Chart data records -- each entry in this array corresponds to a point on
-    // the chart.
-    data: [
-      <?php foreach ($ekskul_favorit as $data) : ?> {
-          year: '<?= ucwords($data['nama_ekskul']) ?>',
-          value: $data,
-        },
-      <?php endforeach; ?>
-    ],
-    // The name of the data record attribute that contains x-values.
-    xkey: 'year',
-    // A list of names of data record attributes that contain y-values.
-    ykeys: ['value'],
-    // Labels for the ykeys -- will be displayed when you hover over the
-    // chart.
-    labels: ['Value']
-  });
-</script>
-
 </body>
 
 </html>

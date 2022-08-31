@@ -130,6 +130,7 @@
                                 <option value="kamis">Kamis</option>
                                 <option value="jumat">Jumat</option>
                                 <option value="sabtu">Sabtu</option>
+                                <option value="minggu">Minggu</option>
                             </select>
                             <label class="fa fa-calendar form-control-feedback left" for="hari" aria-hidden="true"></label>
                         </div>

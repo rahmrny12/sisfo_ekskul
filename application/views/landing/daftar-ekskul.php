@@ -4,10 +4,9 @@
 
             <div class="col-lg-8 mx-auto col-md-7 col-12 pt-5 text-center" data-aos="fade-up">
 
-                <h1 class="mb-4 text-light">Halaman Login <strong>Sisfo Ekskul</strong></h1>
+                <h1 class="mb-4 text-light">Pendaftaran Ekstrakurikuler</h1>
 
-                <p class="text-light">Dengan <strong>login</strong>, Anda dapat melakukan pendaftaran pada ekstrakurikuler yang Anda <strong>minati</strong>.</a></p>
-                <p class="text-light">Belum punya akun? <a href="<?= base_url('auth/registration') ?>" class="text-light">Registrasi disini</a></p>
+                <p class="text-light">Dengan melakukan <strong>pendaftaran</strong>, kamu harus mengikuti kegiatan ekskul sepenuh <strong>hati</strong>.</a></p>
             </div>
 
             <div class="col-lg-6 mx-auto col-md-10 col-12 mb-5">
@@ -42,7 +41,7 @@
                         <?= form_error('alasan', '<div class="ml-4 font-weight-bold" style="color: #f59fa5;">', '</div>') ?>
                     </div>
                     <button type="submit" class="form-control mt-4" id="submit-button" name="submit" style="background-color: var(--secondary-color);">
-                        <h6 class="font-weight-bold">Login Sekarang</h6>
+                        <h6 class="font-weight-bold">Daftar Sekarang</h6>
                     </button>
 
                 </form>

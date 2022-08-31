@@ -26,7 +26,6 @@ function searchSiswaByNISN() {
 
 function filterSiswa(url) {
     var search_siswa = document.getElementById('search_siswa');
-    var filter_siswa = document.getElementById('filter_siswa');
     var filter_ekskul = document.getElementById('filter_ekskul');
     var siswa_table = document.getElementById('siswa_table');
 
@@ -35,7 +34,6 @@ function filterSiswa(url) {
         method: "post",
         data: {
             keyword: search_siswa.value,
-            filter_siswa: filter_siswa.value,
             filter_ekskul: filter_ekskul.value,
         },
         success: function (data) {
